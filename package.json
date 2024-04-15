@@ -1,0 +1,33 @@
+{
+  "name": "fury",
+  "version": "0.0.1",
+  "description": "Project generator for Node.js, supports various templates.",
+  "main": "./dist/app.js",
+  "scripts": {
+    "build": "npx tsc",
+    "dev": "ts-node ./src/app.ts",
+    "start": "node ./dist/app.js"
+  },
+  "keywords": [
+    "cli",
+    "Node",
+    "JavaScript",
+    "tool"
+  ],
+  "author": {
+    "name": "juhyoungRyu",
+    "email": "thinkoutside2004@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^4.3.2",
+    "@types/node": "^20.12.7",
+    "chalk": "4.1.2",
+    "execa": "5.1.1",
+    "ora": "5.4.1"
+  }
+}
