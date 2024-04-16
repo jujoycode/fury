@@ -1,6 +1,6 @@
 {
-  "name": "fury",
-  "version": "1.0.0-beta",
+  "name": "fury-cli",
+  "version": "0.0.1",
   "description": "Project generator for Node.js, supports various templates.",
   "main": "./dist/app.js",
   "scripts": {
