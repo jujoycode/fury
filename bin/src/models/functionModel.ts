@@ -14,13 +14,14 @@ export default class FunctionModel<T> extends BaseModel<ProcessRequest> {
     super(modelData);
     this.cwd = cwd;
 
-    this.name = modelData.processName;
-    this.method = this.setFunction(modelData.method);
+    this.name = this.data.processName;
+    this.method = this.setFunction(this.data.method);
   }
 
-  private setFunction<T>(method: string): () => Promise<T> {
+  private setFunction<T>(method: string):() => Promise<T> {
+
     const func = async () => {
-      return (await execa(method, this.cwd ? { cwd: this.cwd } : {})) as T;
+      return (await execa.command(method, { cwd: this.cwd })) as T;
     };
 
     return func;
