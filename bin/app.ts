@@ -1,15 +1,15 @@
 // modules
-import m_CLI from "./modules/cli";
-import m_Launcher from "./modules/launcher";
+import m_CLI from "./src/modules/cli";
+import m_Launcher from "./src/modules/launcher";
 
 // constant
-import { CONFIG } from "./constants/config";
-import { METHOD } from "./constants/method";
+import { CONFIG } from "./src/constants/config";
+import { METHOD } from "./src/constants/method";
 
 // model
-import InputModel from "./models/inputModel";
-import SelectModel from "./models/selectModel";
-import FunctionModel from "./models/functionModel";
+import InputModel from "./src/models/inputModel";
+import SelectModel from "./src/models/selectModel";
+import FunctionModel from "./src/models/functionModel";
 
 // init
 const CLI = new m_CLI();
