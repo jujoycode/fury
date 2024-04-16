@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // modules
 import m_CLI from "./src/modules/cli";
 import m_Launcher from "./src/modules/launcher";

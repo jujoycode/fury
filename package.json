@@ -1,6 +1,6 @@
 {
-  "name": "fury-cli",
-  "version": "0.0.1",
+  "name": "fury-tool",
+  "version": "0.0.2",
   "description": "Project generator for Node.js, supports various templates.",
   "main": "./dist/app.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "pub": "npm publish"
   },
   "bin": {
-    "fury": "node ./dist/app.js"
+    "fury": "dist/app.js"
   },
   "preferGlobal": true,
   "keywords": [
