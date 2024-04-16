@@ -1,13 +1,13 @@
 {
   "name": "fury",
-  "version": "0.0.1",
+  "version": "1.0.0-beta",
   "description": "Project generator for Node.js, supports various templates.",
   "main": "./dist/app.js",
   "scripts": {
     "build": "npx tsc",
     "dev": "ts-node ./bin/app.ts",
     "start": "node ./dist/app.js",
-    "publish": "npm publish"
+    "pub": "npm publish"
   },
   "bin": {
     "fury": "node ./dist/app.js"
