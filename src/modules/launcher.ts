@@ -1,105 +1,65 @@
 // base
 import { Base } from "../base";
 
-// execa
-import execa from "execa";
+// model
+import FunctionModel from "../models/functionModel";
+
+// interface
+import { ReturnObj, RunRequest, ProcessRequest } from "../interface";
 
 // ora
 import ora, { Ora } from "ora";
 
-interface ReturnObject {
-  success: boolean;
-  data: string;
-}
-
-interface SpinnerOption {
-  process: string;
-  message?: string;
-  errorContext?: any;
-}
-
-interface RunOption {
-  processName: string;
-  method: string;
-  setMethod?: (param: string) => string;
-  setParam?: string;
-  validation?: (param: string) => boolean;
-  errorMessage?: string;
-}
-
 export default class Launcher extends Base {
-  private spinner: Ora;
-  private workingDir: string;
+  private ora: Ora;
+  private workDir: string;
 
   constructor() {
     super();
-    this.spinner = ora();
-    this.spinner.spinner = "arc";
-    this.workingDir = process.cwd();
-  }
 
-  private startSpinner(processName: string) {
-    this.spinner.text = ` ${processName}`;
-    this.spinner.start();
-  }
+    this.ora = ora();
+    this.ora.spinner = "arc";
 
-  private endSpinner({ process, message, errorContext }: SpinnerOption) {
-    switch (process) {
-      case "success":
-        this.spinner.succeed(this.setStyle("green", message ? `${message}` : " Process Success"));
-        break;
-
-      case "fail":
-        this.spinner.fail(this.setStyle("red", " Process Fail, Check Error Context ↓↓ \n"));
-        console.error(errorContext);
-        break;
-    }
+    this.workDir = process.cwd();
   }
 
   public getWorkDir(): string {
-    return this.workingDir;
+    return this.workDir;
   }
 
   public setWorkDir(path: string): void {
-    this.workingDir = process.cwd() + path;
+    this.workDir = process.cwd() + path;
   }
 
-  public async run({
-    processName,
-    method,
-    setMethod,
-    setParam,
-    validation,
-    errorMessage,
-  }: RunOption): Promise<ReturnObject> {
-    const sData = { success: true, data: "" };
+  private async run<T>(request: RunRequest<T>): Promise<ReturnObj<T>> {
+    this.ora.text = ` ${request.name}`;
+    this.ora.start();
 
-    this.startSpinner(processName);
+    const returnObj = { success: true } as ReturnObj<T>;
 
     try {
-      if (setMethod && setParam) {
-        method = setMethod(setParam);
-      }
-      const objReturn = await execa(`${method}`, { cwd: this.workingDir });
-
-      // validation이 존재한다면, failed를 validation return 값의 부정으로 재할당
-      if (validation) {
-        objReturn.failed = !validation(objReturn.stdout);
-        objReturn.stderr = this.setStyle("red", `→ ${errorMessage}`);
-      }
-
-      if (objReturn.failed) {
-        this.endSpinner({ process: "fail", errorContext: objReturn.stderr });
-        sData.success = false;
-      } else {
-        this.endSpinner({ process: "success", message: processName });
-        sData.data = objReturn.stdout;
-      }
+      returnObj.data = await request.run();
+      this.ora.succeed(this.setStyle("greenBright", request.name));
     } catch (error) {
-      this.endSpinner({ process: "fail", errorContext: error });
-      sData.success = false;
+      returnObj.success = false;
+      this.ora.fail(this.setStyle("red", " Process Fail, Check Error Context ↓↓ \n"));
+      console.error(error);
     }
 
-    return sData;
+    return returnObj;
+  }
+
+  public async processRun(request: ProcessRequest): Promise<ReturnObj<string>> {
+    let returnObj: ReturnObj<string> = { success: true };
+
+    const reqFunction = new FunctionModel<string>(request, this.workDir);
+
+    // 전문 변조
+
+    returnObj = await this.run<string>(reqFunction.getFunctionData());
+
+    // validation
+
+    return returnObj;
   }
 }

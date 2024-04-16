@@ -1,6 +1,6 @@
 import { inputInterface, SelectInterface } from "../interface";
 
-export const TEMPLATE = {
+export const CONFIG = {
   PROJECT_NAME: {
     message: "Enter Project Name :",
     defaultValue: "demo",

@@ -21,4 +21,32 @@ interface SelectInterface {
   }[];
 }
 
-export { Style, inputInterface, SelectInterface, PROJECT_TYPE, PACAKGE_MANAGER_TYPE };
+interface ReturnObj<T> {
+  success: boolean;
+  data?: T;
+}
+
+interface RunRequest<T> {
+  name: string;
+  run: () => Promise<T>;
+}
+
+interface ProcessRequest {
+  processName: string;
+  method: string;
+  setMethod?: (param: string) => string;
+  setParam?: string;
+  validation?: (param: string) => boolean;
+  errorMessage?: string;
+}
+
+export {
+  Style,
+  PROJECT_TYPE,
+  PACAKGE_MANAGER_TYPE,
+  inputInterface,
+  SelectInterface,
+  ReturnObj,
+  RunRequest,
+  ProcessRequest,
+};
