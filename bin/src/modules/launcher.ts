@@ -3,6 +3,7 @@ import { Base } from "../base";
 
 // model
 import FunctionModel from "../models/functionModel";
+import ProjectModel from "../models/projectModel";
 
 // interface
 import { ReturnObj, RunRequest, ProcessRequest } from "../interface";
@@ -13,14 +14,17 @@ import ora, { Ora } from "ora";
 export default class Launcher extends Base {
   private ora: Ora;
   private workDir: string;
+  private projectInfo: ProjectModel;
 
-  constructor() {
+  constructor(projectInfo: ProjectModel) {
     super();
 
     this.ora = ora();
     this.ora.spinner = "arc";
 
     this.workDir = process.cwd();
+
+    this.projectInfo = projectInfo;
   }
 
   public getWorkDir(): string {
@@ -55,6 +59,9 @@ export default class Launcher extends Base {
     const reqFunction = new FunctionModel<string>(request, this.workDir);
 
     // 전문 변조
+    if (request.transform) {
+      reqFunction.modulation({ ...request.transform, projectInfo: this.projectInfo.getModel() });
+    }
 
     returnObj = await this.run<string>(reqFunction.getFunctionData());
 

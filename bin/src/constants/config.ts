@@ -1,10 +1,10 @@
-import { inputInterface, SelectInterface } from "../interface";
+import { InputInterface, ConfirmInterface, SelectInterface } from "../interface";
 
 export const CONFIG = {
   PROJECT_NAME: {
     message: "Enter Project Name :",
     defaultValue: "demo",
-  } as inputInterface,
+  } as InputInterface,
 
   PACKAGE_MANAGER: {
     question: "Select a Package Manager :",
@@ -23,4 +23,25 @@ export const CONFIG = {
       { name: "TypeScript", value: "ts", style: "blueBright", disabled: true },
     ],
   } as SelectInterface,
+
+  GIT_USAGE: {
+    message: "Whether to use git :",
+  } as ConfirmInterface,
+
+  GIT_REPOSITORY_URL: {
+    message: "Enter Git Repository URL :",
+    validate: (param: string) => {
+      const regExp = new RegExp(/https:\/\/github\.com\/[a-zA-Z0-9]+\/[a-zA-Z0-9]/);
+
+      if (param === "") {
+        return false;
+      }
+
+      if (regExp.test(param)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  } as InputInterface,
 };

@@ -1,19 +1,28 @@
 // inquirer
-import { input, select } from "@inquirer/prompts";
+import { input, select, confirm } from "@inquirer/prompts";
 
 // project
 import { Base } from "../base";
-import { inputInterface, SelectInterface } from "../interface";
+import { InputInterface, ConfirmInterface, SelectInterface } from "../interface";
 
 export default class CLI extends Base {
   constructor() {
     super();
   }
 
-  public async inputValue({ message, defaultValue }: inputInterface): Promise<string> {
+  public async inputValue({ message, defaultValue, validate }: InputInterface): Promise<string> {
     const answer = await input({
       message: this.setStyle("italic", `${message}`),
       default: defaultValue,
+      validate,
+    });
+
+    return answer;
+  }
+
+  public async confirmValue({ message }: ConfirmInterface): Promise<boolean> {
+    const answer = await confirm({
+      message: this.setStyle("italic", `${message}`),
     });
 
     return answer;

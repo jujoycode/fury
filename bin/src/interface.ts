@@ -6,9 +6,14 @@ type PROJECT_TYPE = "js" | "ts";
 type PACAKGE_MANAGER_TYPE = "npm" | "yarn" | "pnpm" | "bun";
 
 // interface
-interface inputInterface {
+interface InputInterface {
   message: string;
   defaultValue?: string;
+  validate?: (param: string) => boolean | Promise<boolean | string>;
+}
+
+interface ConfirmInterface {
+  message: string;
 }
 
 interface SelectInterface {
@@ -19,6 +24,14 @@ interface SelectInterface {
     disabled?: boolean | string;
     style?: Style;
   }[];
+}
+
+interface ProjectInterface {
+  projectName: string;
+  packageManager: PACAKGE_MANAGER_TYPE;
+  projectType: PROJECT_TYPE;
+  gitUsage: boolean;
+  gitRepoUrl?: string;
 }
 
 interface ReturnObj<T> {
@@ -34,18 +47,20 @@ interface RunRequest<T> {
 interface ProcessRequest {
   processName: string;
   method: string;
-  setMethod?: (param: string) => string;
-  setParam?: string;
-  validation?: (param: string) => boolean;
-  errorMessage?: string;
+  transform?: {
+    target: string;
+    source: keyof ProjectInterface;
+  };
 }
 
 export {
   Style,
   PROJECT_TYPE,
   PACAKGE_MANAGER_TYPE,
-  inputInterface,
+  InputInterface,
+  ConfirmInterface,
   SelectInterface,
+  ProjectInterface,
   ReturnObj,
   RunRequest,
   ProcessRequest,

@@ -7,25 +7,35 @@ import m_Launcher from "./src/modules/launcher";
 // constant
 import { CONFIG } from "./src/constants/config";
 import { METHOD } from "./src/constants/method";
+import * as jsPackage from "./src/constants/templates/jsPackage.json";
+import * as tsPackage from "./src/constants/templates/jsPackage.json";
 
 // model
-import InputModel from "./src/models/inputModel";
-import SelectModel from "./src/models/selectModel";
+import ProjectModel from "./src/models/projectModel";
 
 // init
 const CLI = new m_CLI();
-const Launcher = new m_Launcher();
 
 async function app(): Promise<void> {
   // 1. node version, os check
 
   // 2. receive config data
-  const projectName = await CLI.inputValue(InputModel.gen(CONFIG.PROJECT_NAME));
-  const packageManager = await CLI.selectValue(SelectModel.gen(CONFIG.PACKAGE_MANAGER));
-  const projectType = await CLI.selectValue(SelectModel.gen(CONFIG.PROJECT_TYPE));
+  const projectInfo = new ProjectModel({
+    projectName: await CLI.inputValue(CONFIG.PROJECT_NAME),
+    packageManager: await CLI.selectValue(CONFIG.PACKAGE_MANAGER),
+    projectType: await CLI.selectValue(CONFIG.PROJECT_TYPE),
+    gitUsage: await CLI.confirmValue(CONFIG.GIT_USAGE),
+  });
+
+  if (projectInfo.getData("gitUsage")) {
+    projectInfo.setData("gitRepoUrl", await CLI.inputValue(CONFIG.GIT_REPOSITORY_URL));
+  }
+
+  console.log("\n--------------- Process Start ---------------\n");
 
   // 3. create Project
-  const test = await Launcher.processRun(METHOD.TEST);
+  const Launcher = new m_Launcher(projectInfo);
+  await Launcher.processRun(METHOD.MAKE_DIRECTORY);
 }
 
 app();

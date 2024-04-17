@@ -1,0 +1,17 @@
+{
+  "name": "@@@projectName",
+  "version": "1.0.0",
+  "description": "project templates from fury",
+  "main": "./bin/app.js",
+  "scripts": {
+    "start": "node ./bin/app.js"
+  },
+  "keywords": [],
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "license": "",
+  "devDependencies": {},
+  "dependencies": {}
+}

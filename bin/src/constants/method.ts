@@ -1,8 +1,12 @@
 import { ProcessRequest } from "../interface";
 
 export const METHOD = {
-  TEST: {
-    processName: "testMethod",
-    method: "pnpm i",
+  MAKE_DIRECTORY: {
+    processName: "Make Project Directory",
+    method: "mkdir @",
+    transform: {
+      target: "@",
+      source: "projectName",
+    },
   } as ProcessRequest,
 };
