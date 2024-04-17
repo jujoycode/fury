@@ -6,7 +6,7 @@ import FunctionModel from "../models/functionModel";
 import ProjectModel from "../models/projectModel";
 
 // interface
-import { ReturnObj, RunRequest, ProcessRequest } from "../interface";
+import { ReturnObj, RunRequest, ProcessRequest, Style } from "../interface";
 
 // ora
 import ora, { Ora } from "ora";
@@ -68,5 +68,9 @@ export default class Launcher extends Base {
     // validation
 
     return returnObj;
+  }
+
+  public log(style: Style, message: string) {
+    console.log(this.setStyle(style, message))
   }
 }

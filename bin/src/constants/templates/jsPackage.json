@@ -5,7 +5,7 @@
   "packageManager": "^@",
   "main": "./bin/app.js",
   "scripts": {
-    "start": "node ./bin/app.js"
+    "dev": "node ./bin/app.js"
   },
   "keywords": [],
   "author": {

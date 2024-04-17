@@ -64,7 +64,7 @@ async function app(): Promise<void> {
 
   // create default structure
   await Launcher.run<void>({
-    name: "Init Project",
+    name: "Create Project",
     run: async () =>
       await ProjectUtil.makeDefaultStructure(projectInfo.projectType, Launcher.getWorkDir()),
   });
@@ -74,6 +74,11 @@ async function app(): Promise<void> {
     ...METHOD.INSTALL_MODULES,
     method: Constant.INSTALL_SCRIPT[projectInfo.packageManager],
   });
-}
 
+  Launcher.log("italic", "\n--------------- ✨ Process End ✨ ---------------\n");
+  Launcher.log("white", "Get started with following commands :\n");
+  Launcher.log("blue", `$ cd ${projectInfo.projectName}`);
+  Launcher.log("blue", `$ ${projectInfo.packageManager} run dev`);
+  Launcher.log("italic", "\n--------------- 🔥 Happy Hack! 🔥 ---------------");
+}
 app();

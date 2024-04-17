@@ -10,7 +10,7 @@ import { mkdir, writeFile } from "fs/promises";
 import { Constant } from "../constants/constant";
 
 export class ProjectUtil {
-  constructor() {}
+  constructor() { }
 
   static async makePackageJson(
     projectName: string,
@@ -33,6 +33,6 @@ export class ProjectUtil {
   static async makeDefaultStructure(projectType: PROJECT_TYPE, filePath: string) {
     await mkdir(`${filePath}/bin`);
     await mkdir(`${filePath}/bin/src`);
-    await writeFile(`${filePath}/bin/app.${projectType}`, `console.log('Happy Hack 🔥')`, "utf-8");
+    await writeFile(`${filePath}/bin/app.${projectType}`, `console.log('Happy Hack with fury🔥')`, "utf-8");
   }
 }

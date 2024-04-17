@@ -25,7 +25,7 @@ export const METHOD = {
   } as ProcessRequest,
 
   INSTALL_MODULES: {
-    processName: "Install",
+    processName: "Install Packages",
     method: "",
   } as ProcessRequest,
 };
