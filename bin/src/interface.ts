@@ -53,6 +53,28 @@ interface ProcessRequest {
   };
 }
 
+interface PacakageTemplate {
+  name: string;
+  version: string;
+  description: string;
+  packageManager: string;
+  main: string;
+  scripts: {
+    build?: string;
+    dev?: string;
+    start: string;
+  };
+  keywords: string[];
+  author: {
+    name: string;
+    email: string;
+  };
+  license: string;
+  devDependencies: { [key: string]: string };
+  dependencies: { [key: string]: string };
+  default?: object;
+}
+
 export {
   Style,
   PROJECT_TYPE,
@@ -64,4 +86,5 @@ export {
   ReturnObj,
   RunRequest,
   ProcessRequest,
+  PacakageTemplate,
 };

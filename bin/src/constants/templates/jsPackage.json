@@ -1,15 +1,15 @@
 {
-  "name": "@@@projectName",
+  "name": "@projectName",
   "version": "1.0.0",
   "description": "project templates from fury",
+  "packageManager": "^@",
   "main": "./bin/app.js",
   "scripts": {
     "start": "node ./bin/app.js"
   },
   "keywords": [],
   "author": {
-    "name": "",
-    "email": ""
+    "name": ""
   },
   "license": "",
   "devDependencies": {},

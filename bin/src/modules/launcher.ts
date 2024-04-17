@@ -35,7 +35,7 @@ export default class Launcher extends Base {
     this.workDir = process.cwd() + path;
   }
 
-  private async run<T>(request: RunRequest<T>): Promise<ReturnObj<T>> {
+  public async run<T>(request: RunRequest<T>): Promise<ReturnObj<T>> {
     this.ora.text = ` ${request.name}`;
     this.ora.start();
 

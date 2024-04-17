@@ -20,7 +20,7 @@ export const CONFIG = {
     question: "Select a Project Template :",
     choisOptions: [
       { name: "JavaScript", value: "js", style: "yellowBright" },
-      { name: "TypeScript", value: "ts", style: "blueBright", disabled: true },
+      { name: "TypeScript", value: "ts", style: "blueBright" },
     ],
   } as SelectInterface,
 
