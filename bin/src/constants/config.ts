@@ -10,7 +10,7 @@ export const CONFIG = {
     question: "Select a Package Manager :",
     choisOptions: [
       { name: "npm", value: "npm", style: "redBright" },
-      { name: "yarn", value: "yarn", style: "cyanBright", disabled: true },
+      { name: "yarn berry", value: "yarn", style: "cyanBright" },
       { name: "pnpm", value: "pnpm", style: "yellowBright" },
       { name: "bun", value: "bun", style: "whiteBright", disabled: true },
     ],
