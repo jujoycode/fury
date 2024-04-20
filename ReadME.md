@@ -22,7 +22,7 @@ npm install -g fury-tool
 $ fury
 
 # When you want push all changes
-$ fury -pa
+$ fury -pa 'commit message'
 ```
 
 ## Document
