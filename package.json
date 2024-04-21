@@ -1,6 +1,6 @@
 {
   "name": "fury-tool",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Project generator for Node.js, supports various templates.",
   "main": "./dist/app.js",
   "scripts": {
@@ -25,6 +25,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/figlet": "^1.5.8",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.12.7",
     "typescript": "^5.4.5"
@@ -32,7 +33,9 @@
   "dependencies": {
     "@inquirer/prompts": "^4.3.2",
     "chalk": "4.1.2",
+    "commander": "^12.0.0",
     "execa": "5.1.1",
+    "figlet": "^1.7.0",
     "ora": "5.4.1"
   }
 }
