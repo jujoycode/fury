@@ -13,6 +13,10 @@
     "fury": "dist/app.js"
   },
   "preferGlobal": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jujoycode/fury"
+  },
   "keywords": [
     "cli",
     "git",
