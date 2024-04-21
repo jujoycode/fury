@@ -15,8 +15,9 @@
   },
   "license": "",
   "devDependencies": {
-    "typescript": "^*",
-    "@types/node": "^*"
+    "typescript": "^5",
+    "ts-node": "^10",
+    "@types/node": "^20"
   },
   "dependencies": {}
 }

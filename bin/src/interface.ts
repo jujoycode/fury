@@ -1,22 +1,22 @@
 import { type Color, type Modifiers } from "chalk";
 
 // type
-type Style = typeof Color | typeof Modifiers;
-type PROJECT_TYPE = "js" | "ts";
-type PACAKGE_MANAGER_TYPE = "npm" | "yarn" | "pnpm" | "bun";
+export type Style = typeof Color | typeof Modifiers;
+export type PROJECT_TYPE = "js" | "ts";
+export type PACAKGE_MANAGER_TYPE = "npm" | "yarn" | "pnpm" | "bun";
 
-// interface
-interface InputInterface {
+// export interface
+export interface InputInterface {
   message: string;
   defaultValue?: string;
   validate?: (param: string) => boolean | Promise<boolean | string>;
 }
 
-interface ConfirmInterface {
+export interface ConfirmInterface {
   message: string;
 }
 
-interface SelectInterface {
+export interface SelectInterface {
   question: string;
   choisOptions: {
     name: string;
@@ -26,7 +26,7 @@ interface SelectInterface {
   }[];
 }
 
-interface ProjectInterface {
+export interface ProjectInterface {
   projectName: string;
   packageManager: PACAKGE_MANAGER_TYPE;
   projectType: PROJECT_TYPE;
@@ -34,17 +34,17 @@ interface ProjectInterface {
   gitRepoUrl?: string;
 }
 
-interface ReturnObj<T> {
+export interface ReturnObj<T> {
   success: boolean;
   data?: T;
 }
 
-interface RunRequest<T> {
+export interface RunRequest<T> {
   name: string;
   run: () => Promise<T>;
 }
 
-interface ProcessRequest {
+export interface ProcessRequest {
   processName: string;
   method: string;
   transform?: {
@@ -53,7 +53,14 @@ interface ProcessRequest {
   };
 }
 
-interface PacakageTemplate {
+export interface MakeJson {
+  projectName: string;
+  projectType: PROJECT_TYPE;
+  packageManager: PACAKGE_MANAGER_TYPE;
+  filePath: string;
+}
+
+export interface PacakageTemplate {
   name: string;
   version: string;
   description: string;
@@ -75,16 +82,7 @@ interface PacakageTemplate {
   default?: object;
 }
 
-export {
-  Style,
-  PROJECT_TYPE,
-  PACAKGE_MANAGER_TYPE,
-  InputInterface,
-  ConfirmInterface,
-  SelectInterface,
-  ProjectInterface,
-  ReturnObj,
-  RunRequest,
-  ProcessRequest,
-  PacakageTemplate,
-};
+export interface ProgramOption {
+  Pa: boolean
+}
+

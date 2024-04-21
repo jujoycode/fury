@@ -1,84 +1,47 @@
 #!/usr/bin/env node
 
-// modules
-import m_CLI from "./src/modules/cli";
-import m_Launcher from "./src/modules/launcher";
+// package.json
+// import myPackage from '../package.json'
+// commander
+// import { program } from 'commander'
+// generator
+import { Generator } from "./src/generator"
+// interface
+// import { ProgramOption } from './src/interface';
 
-// constant
-import { CONFIG } from "./src/constants/config";
-import { METHOD } from "./src/constants/method";
+// program setting
+// program
+//   .name('fury')
+//   .description(myPackage.description)
+//   .option('no option', 'Start create project')
+//   .option('-pa', 'Commit all changes', false)
+//   .argument('[commitMessage]', '') //args[0]
+//   .version(myPackage.version)
+//   .parse()
 
-// model
-import ProjectModel from "./src/models/projectModel";
-import { ProjectUtil } from "./src/modules/projectUtil";
-import { Constant } from "./src/constants/constant";
 
-// init
-const CLI = new m_CLI();
+// const options = program.opts<ProgramOption>();
+// const args = program.args;
 
-async function app(): Promise<void> {
-  // 1. node version, os check
-
-  // 2. receive config data
-  const project = new ProjectModel({
-    projectName: await CLI.inputValue(CONFIG.PROJECT_NAME),
-    packageManager: await CLI.selectValue(CONFIG.PACKAGE_MANAGER),
-    projectType: await CLI.selectValue(CONFIG.PROJECT_TYPE),
-    gitUsage: await CLI.confirmValue(CONFIG.GIT_USAGE),
-  });
-
-  if (project.getData("gitUsage")) {
-    project.setData("gitRepoUrl", await CLI.inputValue(CONFIG.GIT_REPOSITORY_URL));
+// program start
+(async () => {
+  try {
+    await Generator()
+    // switch (true) {
+    //   case options.Pa: {
+    //     console.log(args)
+    //     break
+    //   }
+    //   default: {
+    //     await Generator()
+    //     break
+    //   }
+    // }
   }
-
-  const projectInfo = project.getModel();
-
-  const Launcher = new m_Launcher(project);
-  console.log("\n--------------- ✨ Process Start ✨ ---------------\n");
-
-  // 3. create Project
-
-  // create directory
-  await Launcher.processRun(METHOD.CREATE_DIRECTORY);
-
-  // setting working directory
-  Launcher.setWorkDir(`/${projectInfo.projectName}`);
-
-  // create package.json
-  await Launcher.run<void>({
-    name: "Init Package Manager",
-    run: async () =>
-      await ProjectUtil.makePackageJson(
-        projectInfo.projectName,
-        projectInfo.projectType,
-        projectInfo.packageManager,
-        Launcher.getWorkDir()
-      ),
-  });
-
-  // gitUsage : git init
-  if (projectInfo.gitUsage) {
-    await Launcher.processRun(METHOD.GIT_INIT);
-    await Launcher.processRun(METHOD.GIT_ADD_REMOTE);
+  // global catch
+  catch (error: any) {
+    console.log('\n----------------- ⚠️  Error ⚠️  -----------------\n')
+    console.error(error.message)
+    console.log('\n-----------------------------------------------')
   }
-
-  // create default structure
-  await Launcher.run<void>({
-    name: "Create Project",
-    run: async () =>
-      await ProjectUtil.makeDefaultStructure(projectInfo.projectType, Launcher.getWorkDir()),
-  });
-
-  // install node_modules
-  await Launcher.processRun({
-    ...METHOD.INSTALL_MODULES,
-    method: Constant.INSTALL_SCRIPT[projectInfo.packageManager],
-  });
-
-  Launcher.log("italic", "\n--------------- ✨ Process End ✨ ---------------\n");
-  Launcher.log("white", "Get started with following commands :\n");
-  Launcher.log("blue", `$ cd ${projectInfo.projectName}`);
-  Launcher.log("blue", `$ ${projectInfo.packageManager} run dev`);
-  Launcher.log("italic", "\n--------------- 🔥 Happy Hack! 🔥 ---------------");
-}
-app();
+})()
