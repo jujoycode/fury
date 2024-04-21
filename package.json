@@ -15,6 +15,7 @@
   "preferGlobal": true,
   "keywords": [
     "cli",
+    "git",
     "Node",
     "JavaScript",
     "tool"

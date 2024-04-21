@@ -3,7 +3,7 @@
 fury is a tool that helps developers in a variety of tasks.
 
 - It supports make it easier to create node projects that fit different frameworks
-- Make it easier to use `git`
+- Make it easier to use `git` _(wip...)_
 
 ## Installation
 
@@ -21,7 +21,7 @@ npm install -g fury-tool
 # When you want create new project with nodejs
 $ fury
 
-# When you want push all changes
+# When you want push all changes (wip...)
 $ fury -pa 'commit message'
 ```
 
