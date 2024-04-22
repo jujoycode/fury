@@ -36,7 +36,7 @@ export const METHOD = {
 
   GIT_COMMIT: {
     processName: "Commit Changes to Local Repo",
-    method: `git commit -m '@'`,
+    method: `git commit -m @`,
     transform: {
       target: "@",
       source: "commitMessage",
