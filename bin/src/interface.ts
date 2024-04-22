@@ -56,7 +56,7 @@ export interface ProcessRequest {
   method: string;
   transform?: {
     target: string;
-    source: keyof ProjectInterface;
+    source: keyof ModelType;
   };
 }
 

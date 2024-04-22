@@ -30,7 +30,16 @@ export const METHOD = {
   } as ProcessRequest,
 
   GIT_ADD_CHANGES: {
-    processName: "Add All Changes",
+    processName: "Add All Changes to Staging",
     method: "git add .",
+  } as ProcessRequest,
+
+  GIT_COMMIT: {
+    processName: "Commit Changes",
+    method: `git commit -m 'fury_@'`,
+    transform: {
+      target: '@',
+      source: 'commitMessage',
+    },
   } as ProcessRequest,
 };

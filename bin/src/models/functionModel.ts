@@ -42,7 +42,7 @@ export default class FunctionModel<T, K extends ModelType> extends BaseModel<Pro
     const beforeMethod = this.getData("method");
 
     const sourceData = projectInfo[source] as string;
-    const afterMethod = beforeMethod.replace(target, sourceData);
+    const afterMethod = beforeMethod.replace(target, sourceData.split(' ').join('-'))
 
     this.method = this.setFunction(afterMethod);
   }

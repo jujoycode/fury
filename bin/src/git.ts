@@ -33,11 +33,12 @@ export async function Git(type: GitType, param: string[]): Promise<void> {
 
   switch (type) {
     case "pa":
-      await pushAll(gitInfo, Launcher);
+      await pushAll(Launcher);
       break;
   }
 }
 
-async function pushAll<T extends GitInterface>(gitInfo: T, Launcher: m_Launcher<T>) {
+async function pushAll<T extends GitInterface>(Launcher: m_Launcher<T>) {
   await Launcher.processRun(METHOD.GIT_ADD_CHANGES);
+  await Launcher.processRun(METHOD.GIT_COMMIT);
 }
