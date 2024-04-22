@@ -11,6 +11,9 @@ import { ReturnObj, RunRequest, ProcessRequest, Style } from "../interface";
 // ora
 import ora, { Ora } from "ora";
 
+// error
+import { ProcessError } from "../error/processError";
+
 export default class Launcher extends Base {
   private ora: Ora;
   private workDir: string;
@@ -47,7 +50,7 @@ export default class Launcher extends Base {
     } catch (error) {
       returnObj.success = false;
       this.ora.fail(this.setStyle("red", " Process Fail, Check Error Context ↓↓ \n"));
-      console.error(error);
+      throw new ProcessError("Launcher Fail", error, "Process Fail Error");
     }
 
     return returnObj;
@@ -68,9 +71,5 @@ export default class Launcher extends Base {
     // validation
 
     return returnObj;
-  }
-
-  public log(style: Style, message: string) {
-    console.log(this.setStyle(style, message))
   }
 }

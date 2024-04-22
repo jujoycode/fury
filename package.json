@@ -30,7 +30,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/figlet": "^1.5.8",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.12.7",
     "typescript": "^5.4.5"
@@ -40,7 +39,6 @@
     "chalk": "4.1.2",
     "commander": "^12.0.0",
     "execa": "5.1.1",
-    "figlet": "^1.7.0",
     "ora": "5.4.1"
   }
 }

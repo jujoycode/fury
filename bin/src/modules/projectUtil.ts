@@ -10,10 +10,8 @@ import tsConfig from "../constants/templates/tsConfig.json";
 import { mkdir, writeFile } from "fs/promises";
 import { CONSTANT } from "../constants/constant";
 
-
-
 export class ProjectUtil {
-  constructor() { }
+  constructor() {}
 
   /**
    * makeJson
@@ -23,16 +21,20 @@ export class ProjectUtil {
    * @param filePath 프로젝트의 위치
    */
   static async makeJson(request: MakeJson) {
-    let template = {} as PacakageTemplate
+    let template = {} as PacakageTemplate;
 
     switch (request.projectType) {
       case "js": {
-        template = JSON.parse(JSON.stringify(jsPackage))
+        template = JSON.parse(JSON.stringify(jsPackage));
         break;
       }
       case "ts": {
-        template = JSON.parse(JSON.stringify(tsPackage))
-        await writeFile(`${request.filePath}/tsconfig.json`, JSON.stringify(tsConfig, null, 2), "utf-8");
+        template = JSON.parse(JSON.stringify(tsPackage));
+        await writeFile(
+          `${request.filePath}/tsconfig.json`,
+          JSON.stringify(tsConfig, null, 2),
+          "utf-8"
+        );
         break;
       }
     }

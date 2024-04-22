@@ -83,6 +83,5 @@ export interface PacakageTemplate {
 }
 
 export interface ProgramOption {
-  Pa: boolean
+  Pa: boolean;
 }
-

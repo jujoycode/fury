@@ -1,27 +1,26 @@
 #!/usr/bin/env node
 
 // commander
-import { createCommand } from 'commander'
-// figlet
-import { textSync } from 'figlet'
+import { createCommand } from "commander";
 // generator
-import { Generator } from "./src/generator"
+import { Generator } from "./src/generator";
 // interface
-import { ProgramOption } from './src/interface';
+import { ProgramOption } from "./src/interface";
+// logger
+import Logger from "./src/modules/logger";
 
-// program setting
+// init
+const log = new Logger();
 const program = createCommand();
 
-
 program
-  .name('fury')
-  .version('1.0.2')
-  .description('Project generator for Node.js, supports various templates.')
-  .option('no option', 'Start create project')
-  .option('-pa', 'Commit all changes', false)
-  .argument('[commitMessage]', '') //args[0]
+  .option("no option", "Start create project")
+  .option("-pa", "Commit all changes", false)
+  .argument("[commitMessage]", "") //args[0]
+  .name("fury")
+  .version("1.0.2")
+  .description("Project generator for Node.js, supports various templates.")
   .parse();
-
 
 const options = program.opts<ProgramOption>();
 const args = program.args;
@@ -29,22 +28,20 @@ const args = program.args;
 // program start
 (async () => {
   try {
-    console.log(`${textSync(`Fury - 1.0.2`)}\n`)
     switch (true) {
       case options.Pa: {
-        console.log(args)
-        break
+        console.log(args);
+        break;
       }
       default: {
-        await Generator()
-        break
+        await Generator();
+        break;
       }
     }
+  } catch (error: any) {
+    // global catch
+    log.line(" ⛔️ Error ⛔️ ");
+    log.error(error);
+    log.line();
   }
-  // global catch
-  catch (error: any) {
-    console.log('\n---------------- ⚠️  Error ⚠️  ------------------\n')
-    console.error(error.message)
-    console.log('\n-----------------------------------------------')
-  }
-})()
+})();
