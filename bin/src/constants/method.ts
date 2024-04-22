@@ -35,11 +35,16 @@ export const METHOD = {
   } as ProcessRequest,
 
   GIT_COMMIT: {
-    processName: "Commit Changes",
+    processName: "Commit Changes to Local Repo",
     method: `git commit -m 'fury_@'`,
     transform: {
-      target: '@',
-      source: 'commitMessage',
+      target: "@",
+      source: "commitMessage",
     },
+  } as ProcessRequest,
+
+  GIT_PUSH: {
+    processName: "Push Commit to Remote Repo",
+    method: `git push`,
   } as ProcessRequest,
 };

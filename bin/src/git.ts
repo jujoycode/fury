@@ -41,4 +41,5 @@ export async function Git(type: GitType, param: string[]): Promise<void> {
 async function pushAll<T extends GitInterface>(Launcher: m_Launcher<T>) {
   await Launcher.processRun(METHOD.GIT_ADD_CHANGES);
   await Launcher.processRun(METHOD.GIT_COMMIT);
+  await Launcher.processRun(METHOD.GIT_PUSH);
 }
