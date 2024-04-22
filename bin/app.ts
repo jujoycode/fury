@@ -18,7 +18,7 @@ program
   .option("-pa", "Commit all changes", false)
   .argument("[commitMessage]", "") //args[0]
   .name("fury")
-  .version("1.0.2")
+  .version("1.0.4")
   .description("Project generator for Node.js, supports various templates.")
   .parse();
 

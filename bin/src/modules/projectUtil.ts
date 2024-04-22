@@ -7,7 +7,7 @@ import tsPackage from "../constants/templates/tsPackage.json";
 import tsConfig from "../constants/templates/tsConfig.json";
 
 // fs
-import { mkdir, writeFile } from "fs/promises";
+import { mkdirSync, existsSync, writeFileSync } from "fs";
 import { CONSTANT } from "../constants/constant";
 
 export class ProjectUtil {
@@ -30,7 +30,7 @@ export class ProjectUtil {
       }
       case "ts": {
         template = JSON.parse(JSON.stringify(tsPackage));
-        await writeFile(
+        writeFileSync(
           `${request.filePath}/tsconfig.json`,
           JSON.stringify(tsConfig, null, 2),
           "utf-8"
@@ -42,7 +42,7 @@ export class ProjectUtil {
     template.name = request.projectName;
     template.packageManager = CONSTANT.DEFAULT_PACKAGE_MANAGER[request.packageManager];
 
-    await writeFile(`${request.filePath}/package.json`, JSON.stringify(template, null, 2), "utf-8");
+    writeFileSync(`${request.filePath}/package.json`, JSON.stringify(template, null, 2), "utf-8");
   }
 
   /**
@@ -51,12 +51,22 @@ export class ProjectUtil {
    * @param filePath 프로젝트의 위치
    */
   static async makeDefaultStructure(projectType: PROJECT_TYPE, filePath: string) {
-    await mkdir(`${filePath}/bin`);
-    await mkdir(`${filePath}/bin/src`);
-    await writeFile(
+    mkdirSync(`${filePath}/bin`);
+    mkdirSync(`${filePath}/bin/src`);
+    writeFileSync(
       `${filePath}/bin/app.${projectType}`,
       `console.log('Happy Hack with fury🔥')`,
       "utf-8"
     );
+  }
+
+  /**
+   * fileExistCheck
+   * @desc 경로에 해당 파일이 존재하는지 확인합니다.
+   * @param filePath 프로젝트의 위치
+   * @result true | false
+   */
+  static fileExistCheck(filePath: string) {
+    return existsSync(filePath);
   }
 }
