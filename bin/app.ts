@@ -8,6 +8,7 @@ import { Generator } from "./src/generator";
 import { ProgramOption } from "./src/interface";
 // logger
 import Logger from "./src/modules/logger";
+import { Git } from "./src/git";
 
 // init
 const log = new Logger();
@@ -30,7 +31,7 @@ const args = program.args;
   try {
     switch (true) {
       case options.Pa: {
-        console.log(args);
+        await Git("pa", args);
         break;
       }
       default: {

@@ -10,6 +10,11 @@ export const METHOD = {
     },
   } as ProcessRequest,
 
+  INSTALL_MODULES: {
+    processName: "Install Packages",
+    method: "",
+  } as ProcessRequest,
+
   GIT_INIT: {
     processName: "Init Git",
     method: "git init",
@@ -24,8 +29,8 @@ export const METHOD = {
     },
   } as ProcessRequest,
 
-  INSTALL_MODULES: {
-    processName: "Install Packages",
-    method: "",
+  GIT_ADD_CHANGES: {
+    processName: "Add All Changes",
+    method: "git add .",
   } as ProcessRequest,
 };

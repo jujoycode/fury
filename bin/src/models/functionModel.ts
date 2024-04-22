@@ -1,10 +1,10 @@
 import { BaseModel } from "./baseModel";
-import { ProcessRequest, ProjectInterface, RunRequest } from "../interface";
+import { ModelType, ProcessRequest, RunRequest } from "../interface";
 
 // execa
 import execa from "execa";
 
-export default class FunctionModel<T> extends BaseModel<ProcessRequest> {
+export default class FunctionModel<T, K extends ModelType> extends BaseModel<ProcessRequest> {
   private cwd?: string;
 
   public name: string;
@@ -36,8 +36,8 @@ export default class FunctionModel<T> extends BaseModel<ProcessRequest> {
     projectInfo,
   }: {
     target: string;
-    source: keyof ProjectInterface;
-    projectInfo: ProjectInterface;
+    source: keyof K;
+    projectInfo: K;
   }) {
     const beforeMethod = this.getData("method");
 

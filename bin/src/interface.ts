@@ -4,6 +4,9 @@ import { type Color, type Modifiers } from "chalk";
 export type Style = typeof Color | typeof Modifiers;
 export type PROJECT_TYPE = "js" | "ts";
 export type PACAKGE_MANAGER_TYPE = "npm" | "yarn" | "pnpm" | "bun";
+export type GitType = "pa";
+
+export type ModelType = ProjectInterface | GitInterface;
 
 // export interface
 export interface InputInterface {
@@ -32,6 +35,10 @@ export interface ProjectInterface {
   projectType: PROJECT_TYPE;
   gitUsage: boolean;
   gitRepoUrl?: string;
+}
+
+export interface GitInterface {
+  commitMessage?: string;
 }
 
 export interface ReturnObj<T> {

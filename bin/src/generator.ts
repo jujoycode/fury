@@ -14,6 +14,9 @@ import ProjectModel from "../src/models/projectModel";
 // util
 import { ProjectUtil } from "../src/modules/projectUtil";
 
+// interface
+import { ProjectInterface } from "./interface";
+
 // init
 const CLI = new m_CLI();
 const log = new m_Logger();
@@ -22,7 +25,7 @@ export async function Generator(): Promise<void> {
   // 1. node version, os check
 
   // 2. receive config data
-  const project = new ProjectModel({
+  const project = new ProjectModel<ProjectInterface>({
     projectName: await CLI.inputValue(CONFIG.PROJECT_NAME),
     packageManager: await CLI.selectValue(CONFIG.PACKAGE_MANAGER),
     projectType: await CLI.selectValue(CONFIG.PROJECT_TYPE),

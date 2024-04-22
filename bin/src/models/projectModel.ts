@@ -1,8 +1,8 @@
 import { BaseModel } from "./baseModel";
-import { ProjectInterface } from "../interface";
+import { ModelType } from "../interface";
 
-export default class ProjectModel extends BaseModel<ProjectInterface> {
-  constructor(modelData: ProjectInterface) {
+export default class ProjectModel<T extends ModelType> extends BaseModel<T> {
+  constructor(modelData: T) {
     super(modelData);
   }
 }
