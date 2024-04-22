@@ -44,4 +44,8 @@ export const CONFIG = {
       }
     },
   } as InputInterface,
+
+  PUSH_PERMISSION: {
+    message: "Push Remote Repo? :",
+  } as ConfirmInterface,
 };
