@@ -32,7 +32,9 @@ export default class Logger extends Base {
     if (message) {
       console.log(`→ ${this.setStyle("red", error.sMessage)}\n`);
     }
-    console.log(context);
+    if (context == this.setStyle("red", 'undefined')) {
+      console.log(context)
+    }
   }
 
   public success(sMessage: string) {

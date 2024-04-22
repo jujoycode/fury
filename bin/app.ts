@@ -41,7 +41,7 @@ const args = program.args;
     }
   } catch (error: any) {
     // global catch
-    log.line(" ⛔️ Error ⛔️ ");
+    log.line(" ㅤ⛔️ Error ⛔️ㅤ ");
     log.error(error);
     log.line();
   }
