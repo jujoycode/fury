@@ -1,4 +1,4 @@
-<img width="85px" height="75px" align="right" alt="Inquirer Logo" src="./assets/logo.jpeg" title="fury" />
+<img width="85px" height="70px" align="right" alt="Inquirer Logo" src="./assets/logo.jpeg" title="fury" />
 
 # Fury
 
