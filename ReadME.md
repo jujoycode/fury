@@ -27,6 +27,12 @@ $ fury -pa
 
 # When you want update your 'node_modules' (wip)
 $ fury -up
+
+# When you want to access help information
+$ fury -h # or fury --help
+
+# When you want to access version information
+$ fury -V # or fury --version
 ```
 
 ## Document

@@ -1,16 +1,16 @@
 {
   "name": "fury-tool",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "description": "Project generator for Node.js, supports various templates.",
   "main": "./dist/app.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "rm -rf dist && npx tsc",
     "dev": "ts-node ./bin/app.ts",
-    "start": "node ./dist/app.js",
+    "start": "node ./dist/bin/app.js",
     "pub": "npm publish"
   },
   "bin": {
-    "fury": "dist/app.js"
+    "fury": "dist/bin/app.js"
   },
   "preferGlobal": true,
   "repository": {

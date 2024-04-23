@@ -10,5 +10,6 @@
     "resolveJsonModule": true,
     "declaration": true,
     // "sourceMap": true, // 디버깅 맵
-  }
+  },
+  "include": ["bin/**/*", "package.json"],
 }
