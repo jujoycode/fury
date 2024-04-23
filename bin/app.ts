@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// pacakge.json
+import myPackage from "../package.json";
 // commander
 import { createCommand } from "commander";
 // generator
@@ -17,10 +19,9 @@ const program = createCommand();
 program
   .option("no option", "Start create project")
   .option("-pa", "Commit all changes", false)
-  .argument("[commitMessage]", "") //args[0]
-  .name("fury")
-  .version("1.0.4")
-  .description("Project generator for Node.js, supports various templates.")
+  .name(myPackage.name)
+  .version(myPackage.version)
+  .description(myPackage.description)
   .parse();
 
 const options = program.opts<ProgramOption>();

@@ -24,6 +24,7 @@ export interface SelectInterface {
   choisOptions: {
     name: string;
     value: string;
+    description?: string;
     disabled?: boolean | string;
     style?: Style;
   }[];

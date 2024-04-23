@@ -66,7 +66,10 @@ export class ProjectUtil {
    * @param filePath 프로젝트의 위치
    * @result true | false
    */
-  static fileExistCheck(filePath: string) {
+  static fileExistCheck(filePath: string, fileName?: string) {
+    if (fileName) {
+      filePath += fileName;
+    }
     return existsSync(filePath);
   }
 }
