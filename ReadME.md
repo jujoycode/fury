@@ -1,4 +1,6 @@
-## Overview
+<img width="75px" height="75px" align="right" alt="Inquirer Logo" src="./assets/logo.jpeg" title="fury" />
+
+# Fury
 
 > fury is a tool that helps developers in a variety of tasks.
 
@@ -45,7 +47,7 @@ $ fury -V # or fury --version
 
 ## Version History
 
-- 2.0.0
+- 1.1.0
   - Use `git` through `fury`
 - 1.0.0
   - `fury` can create Project with `node`
