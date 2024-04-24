@@ -41,6 +41,7 @@ async function pushAll() {
   const commitMessage = await CLI.inputValue(CONFIG.COMMIT_MESSAGE);
 
   const gitModel = new ProjectModel<GitInterface>({
+    //FIXME: commit message에 공백이 들어갈 시, execa에서 에러가 발생
     commitMessage: `${commitType}ㅤ${commitMessage.split(" ").join("-")}`,
   });
 
@@ -55,3 +56,5 @@ async function pushAll() {
     await Launcher.processRun(METHOD.GIT_PUSH);
   }
 }
+
+//TODO: 이후 git 관련 신규 개발 항목이 생길 시, Function 단위로 분류

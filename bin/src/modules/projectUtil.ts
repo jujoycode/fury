@@ -8,7 +8,6 @@ import tsConfig from "../constants/templates/tsConfig.json";
 
 // fs
 import { mkdirSync, existsSync, writeFileSync } from "fs";
-import { CONSTANT } from "../constants/constant";
 
 export class ProjectUtil {
   constructor() {}
@@ -40,7 +39,6 @@ export class ProjectUtil {
     }
 
     template.name = request.projectName;
-    template.packageManager = CONSTANT.DEFAULT_PACKAGE_MANAGER[request.packageManager];
 
     writeFileSync(`${request.filePath}/package.json`, JSON.stringify(template, null, 2), "utf-8");
   }
@@ -51,6 +49,7 @@ export class ProjectUtil {
    * @param filePath 프로젝트의 위치
    */
   static async makeDefaultStructure(projectType: PROJECT_TYPE, filePath: string) {
+    //TODO: fury.yaml 파일이 존재한다면, 읽어서 해당 폴더 구조대로 생성 가능하게 변경
     mkdirSync(`${filePath}/bin`);
     mkdirSync(`${filePath}/bin/src`);
     writeFileSync(

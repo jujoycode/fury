@@ -49,16 +49,21 @@ export const CONFIG = {
     message: "Do you want push to remote repo? :",
   } as ConfirmInterface,
 
+  //TODO: 이후 계층적으로 구성
+  // ex) Develop
+  //      → Work in Progress
+  //      → New Feature
   COMMIT_TYPE: {
     question: "Select a Type of Commit :",
     choisOptions: [
-      { name: "New feature", value: ":sparkles:", description: "→ 신규 기능 개발" },
-      { name: "Bugfix", value: ":bug:", description: "→ 버그 수정" },
-      { name: "Documentation", value: ":books:", description: "→ 문서 관련 수정" },
-      { name: "Refactor code", value: ":hammer:", description: "→ 코드 리팩토링" },
+      { name: "Work in Progress", value: ":construction:", description: "→ 미완성" },
+      { name: "New Feature", value: ":sparkles:", description: "→ 신규 기능 개발" },
+      { name: "Bug Fix", value: ":bug:", description: "→ 버그 수정" },
+      { name: "Refactor Code", value: ":hammer:", description: "→ 코드 리팩토링" },
       { name: "Performance", value: ":racehorse:", description: "→ 성능 개선" },
       { name: "Style", value: ":lipstick:", description: "→ 스타일 변경" },
-      { name: "Work in progress", value: ":construction:", description: "→ 작업중인 사항" },
+      { name: "New Dependency", value: ":heavy_plus_sign:", description: "→ 신규 모듈 설치" },
+      { name: "Documentation", value: ":books:", description: "→ 문서 관련 수정" },
       { name: "Tests", value: ":white_check_mark:", description: "→ 테스트 관련 코드" },
       { name: "Build", value: "build", description: "→ 빌드 관련 파일 수정" },
       { name: "Deploying", value: ":rocket:", description: "→ 배포" },

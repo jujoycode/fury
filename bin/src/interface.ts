@@ -1,3 +1,5 @@
+//TODO: interface명 정리 필요
+
 import { type Color, type Modifiers } from "chalk";
 
 // type
