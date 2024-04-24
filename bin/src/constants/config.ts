@@ -46,7 +46,7 @@ export const CONFIG = {
   } as InputInterface,
 
   PUSH_PERMISSION: {
-    message: "Do you want push to remote repo? :",
+    message: "Do you want to push to Remote Repo? :",
   } as ConfirmInterface,
 
   //TODO: 이후 계층적으로 구성
