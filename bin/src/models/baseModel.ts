@@ -1,22 +1,31 @@
-import { Base } from "../base";
+import type CLI from "../core/cli";
+import Log from "../utils/log";
 
-export class BaseModel<T extends object> extends Base {
-  protected data: T;
+abstract class BaseModel {
+  protected CLI: CLI;
+  private eventHandlers: { [eventName: string]: Function[] } = {};
+  protected log: Log;
 
-  constructor(data: T) {
-    super();
-    this.data = data;
+  constructor(CLI: CLI, modelName: string) {
+    this.CLI = CLI;
+    this.log = Log.getInstance(modelName);
   }
 
-  public getData<K extends keyof T>(objectKey: K): T[K] {
-    return this.data[objectKey];
+  public on(eventName: string, callback: Function) {
+    if (!this.eventHandlers[eventName]) {
+      this.eventHandlers[eventName] = [];
+    }
+    this.eventHandlers[eventName].push(callback);
   }
 
-  public setData<K extends keyof T>(objectKey: K, data: T[K]): void {
-    this.data[objectKey] = data;
+  public emit(eventName: string, data?: any) {
+    if (this.eventHandlers[eventName]) {
+      this.eventHandlers[eventName].forEach((callback) => callback(data));
+    }
   }
 
-  public getModel(): T {
-    return this.data;
-  }
+  // 추상 메서드를 정의할 수 있습니다.
+  abstract getData(): Promise<any>;
 }
+
+export default BaseModel;

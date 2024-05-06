@@ -1,14 +1,15 @@
-import { Base } from "../base";
+import { Base } from "../core/base";
 
 export class BaseError extends Base {
-  iErrorCode: number;
-  sMessage: string;
-  cError?: any;
+  public title?: string;
+  public message?: string;
+  public context: any;
 
-  constructor(iErrorCode: number, sMessage: string, cError: any) {
+  constructor({ context, title, message }: { context: string; title?: string; message?: string }) {
     super();
-    this.iErrorCode = iErrorCode;
-    this.sMessage = sMessage;
-    this.cError = this.setStyle("red", cError);
+
+    this.context = this.setStyle("red", context);
+    this.title = title;
+    this.message = message;
   }
 }

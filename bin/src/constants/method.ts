@@ -1,50 +1,21 @@
-import { ProcessRequest } from "../interface";
+import { INT_PROJECT } from "../interfaces/model.project";
+import { INT_METHOD } from "../interfaces/core.launcher";
 
-export const METHOD = {
-  CREATE_DIRECTORY: {
-    processName: "Create Project Directory",
-    method: "mkdir @",
-    transform: {
-      target: "@",
-      source: "projectName",
-    },
-  } as ProcessRequest,
+export const GENERATE_METHOD = {
+  CREATE_PROJECT_DIRECTORY: {
+    info: "Create Project Directory",
+    magic: "mkdir @",
+    translate: "projectName",
+  } as INT_METHOD<INT_PROJECT>,
 
-  INSTALL_MODULES: {
-    processName: "Install Packages",
-    method: "",
-  } as ProcessRequest,
+  INIT_GIT: {
+    info: "Init Git",
+    magic: "git init",
+  } as INT_METHOD<INT_PROJECT>,
 
-  GIT_INIT: {
-    processName: "Init Git",
-    method: "git init",
-  } as ProcessRequest,
-
-  GIT_ADD_REMOTE: {
-    processName: "Setting Git Remote",
-    method: "git remote add origin @",
-    transform: {
-      target: "@",
-      source: "gitRepoUrl",
-    },
-  } as ProcessRequest,
-
-  GIT_ADD_CHANGES: {
-    processName: "Add All Changes to Staging",
-    method: "git add .",
-  } as ProcessRequest,
-
-  GIT_COMMIT: {
-    processName: "Commit Changes to Local Repo",
-    method: `git commit -m @`,
-    transform: {
-      target: "@",
-      source: "commitMessage",
-    },
-  } as ProcessRequest,
-
-  GIT_PUSH: {
-    processName: "Push Commit to Remote Repo",
-    method: `git push`,
-  } as ProcessRequest,
+  ADD_REMOTE_ORIGIN: {
+    info: "Setting Git Remote",
+    magic: "git remote add origin '@'",
+    translate: "gitRepoUrl",
+  } as INT_METHOD<INT_PROJECT>,
 };

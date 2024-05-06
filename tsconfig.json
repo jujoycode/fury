@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "ES6",
     "module": "commonjs",
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
+    "outDir": "dist",
     "declaration": true,
-    // "sourceMap": true, // 디버깅 맵
-  },
-  "include": ["bin/**/*", "package.json"],
+    "emitDeclarationOnly": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
+  }
 }
