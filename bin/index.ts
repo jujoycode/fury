@@ -1,46 +1,29 @@
-#!/usr/bin/env node
-
 import { Program } from "./program";
-
-// core
-import m_CLI from "./src/core/cli";
-import m_Invoker from "./src/core/invoker";
-
-// command
-import { GenerateCommand } from "./src/commands/generate.command";
-import { SystemError } from "./src/error/systemError";
-
-// util
-import Log from "./src/utils/log";
-
-// --- main ---
+import { Logger } from './src/utils/index'
+import { Invoker, CLI } from "./src/core/index";
+import { CreateProjectCommand } from './src/commands/index'
 
 async function main() {
-  // 0. init
-  const Invoker = new m_Invoker();
-  const CLI = new m_CLI()
+  const program = Program()
+  const logger = new Logger()
+  const invoker = new Invoker()
+  const cli = new CLI(logger)
 
-  const log = Log.getInstance("index");
-  const { options, args } = Program();
+  logger.debug(`Program Start`)
 
-  // 1. Make Process
   switch (true) {
-    case options.Pa:
-      break;
-    default:
-      Invoker.setCommand(new GenerateCommand(CLI));
-      break;
+    case program.Push: {
+
+      break
+    };
+
+    default: {
+      invoker.addCommand(new CreateProjectCommand(logger, cli))
+      break
+    };
   }
 
-  // 2. Process Excute
-  try {
-    await Invoker.excuteCommand();
-  } catch (error: any) {
-    if (!error.title) {
-      error = new SystemError(error, error.message);
-    }
-    log.error(error);
-  }
+  await invoker.invoke()
 }
 
-main();
+main()

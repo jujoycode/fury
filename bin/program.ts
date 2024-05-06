@@ -1,28 +1,19 @@
-// pacakge.json
-import myPackage from "../package.json";
-
-// commander
-import { createCommand } from 'commander'
-
-// interface
-import { Program } from "./src/interfaces/program";
+import myPackage from '../package.json'
+import { Command } from "commander";
+import { Program } from "./src/interface/program";
 
 export function Program() {
-    const program = createCommand();
+  const command = new Command()
 
-    program
-        .option("no option", "Start create project")
-        .option("-pa", "Commit all changes", false)
-        .name(myPackage.name)
-        .version(myPackage.version)
-        .description(myPackage.description)
-        .parse();
+  command
+    .option("no option", "Start create project")
+    .option("-push", "Commit&Push all changes", false)
+    .name(myPackage.name)
+    .version(myPackage.version)
+    .description(myPackage.description)
+    .parse();
 
-    const options: Program = program.opts()
-    const args = program.args;
+  const options: Program = command.opts()
 
-    return {
-        options,
-        args
-    }
+  return options
 }

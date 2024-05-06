@@ -1,21 +1,26 @@
-import { EmptyError } from "../error/emptyError";
-import { Command } from "../interfaces/command";
+import type { BaseCommand } from "../commands/baseCommand";
 
 export default class Invoker {
-  private command: Command | null = null;
+  private commands: BaseCommand[] = []
 
-  constructor() { }
-
-  public setCommand(command: Command): void {
-    this.command = command;
+  constructor() {
   }
 
-  public async excuteCommand(): Promise<void> {
-    if (this.command === null) {
-      throw new EmptyError('Command Empty', "Can not excute empty command")
-    }
+  public addCommand(command: BaseCommand) {
+    this.commands.push(command)
+  }
 
-    await this.command!.execute();
-    this.command = null
+  public async invoke() {
+    this.commands.forEach(async (command) => {
+
+      try {
+        await command.run()
+      } catch (error) {
+        console.error(error)
+        await command.undo()
+        console.log('Undo')
+      }
+
+    })
   }
 }

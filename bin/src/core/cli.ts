@@ -1,41 +1,42 @@
 // inquirer
 import { input, confirm, select } from "@inquirer/prompts";
 
-// base
-import { Base } from "../core/base";
-
 // interface
-import { INT_CLI_CONFIRM, INT_CLI_INPUT, INT_CLI_SELECT } from "../interfaces/core.cli";
+import { CLI_CONFIRM, CLI_INPUT, CLI_SELECT } from '../interface/cli';
 
-export default class CLI extends Base {
-  constructor() {
-    super();
+// util
+import { Logger } from "../utils";
+
+export default class CLI {
+  protected logger: Logger
+
+  constructor(logger: Logger) {
+    this.logger = logger
   }
 
-  public async getInputValue({ message, defaultValue, validate }: INT_CLI_INPUT): Promise<string> {
+  public async getInputValue({ message, defaultValue, validate }: CLI_INPUT): Promise<string> {
     const answer = await input({
-      message: this.setStyle("italic", message),
+      message: this.logger.setStyle(["italic"], message),
       default: defaultValue,
       validate,
     });
     return answer;
   }
 
-  public async getConfirmValue({ message }: INT_CLI_CONFIRM): Promise<boolean> {
-    const answer = await confirm({ message: this.setStyle("italic", message) });
+  public async getConfirmValue({ message }: CLI_CONFIRM): Promise<boolean> {
+    const answer = await confirm({ message: this.logger.setStyle(["italic"], message) });
     return answer;
   }
 
-  public async getSeletValue<T>({ question, choisOptions }: INT_CLI_SELECT): Promise<T> {
-    // style option이 존재한다면, name에 style 적용
+  public async getSeletValue<T>({ question, choisOptions }: CLI_SELECT): Promise<T> {
     choisOptions.forEach((option) => {
       if (option.style) {
-        option.name = this.setStyle(option.style, `${option.name}`);
+        option.name = this.logger.setStyle([option.style], `${option.name}`);
       }
     });
 
     const answer = (await select({
-      message: this.setStyle("italic", `${question}`),
+      message: this.logger.setStyle(["italic"], `${question}`),
       choices: choisOptions,
     })) as T;
 

@@ -4,12 +4,15 @@ await esbuild
   .build({
     entryPoints: ["bin/index.ts"],
     outfile: "dist/bundle.js",
-    logLevel: "debug",
+    logLevel: "info",
     bundle: true,
     minify: true,
     treeShaking: true,
     format: "cjs",
     platform: "node",
     target: "node16",
+  })
+  .then(() => {
+    console.log("");
   })
   .catch(() => process.exit(1));
