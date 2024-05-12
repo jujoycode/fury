@@ -1,5 +1,5 @@
 // interface
-import { CLI_CONFIRM, CLI_INPUT, CLI_SELECT } from "../interface/cli";
+import { CLI_CONFIRM, CLI_INPUT, CLI_SELECT } from "../interface/cli"
 
 export const CONFIG = {
   PROJECT_NAME: {
@@ -7,9 +7,9 @@ export const CONFIG = {
     defaultValue: "demo",
     validate: (param: string) => {
       if (/[\s]/g.test(param)) {
-        return false;
+        return false
       } else {
-        return true;
+        return true
       }
     },
   } as CLI_INPUT,
@@ -18,7 +18,7 @@ export const CONFIG = {
     question: "Select a Package Manager :",
     choisOptions: [
       { name: "npm", value: "npm", style: "redBright" },
-      { name: "yarn berry", value: "yarn", style: "cyanBright" },
+      { name: "yarn berry", value: "yarn", style: "cyanBright", disabled: true },
       { name: "pnpm", value: "pnpm", style: "yellowBright" },
       { name: "bun", value: "bun", style: "whiteBright", disabled: true },
     ],
@@ -32,13 +32,18 @@ export const CONFIG = {
     ],
   } as CLI_SELECT,
 
+  FRAMEWORK_USAGE: {
+    message: "Whether to use framework :",
+  } as CLI_CONFIRM,
+
   PROJECT_TEMPLATE: {
     question: "Select a Template for Project :",
     choisOptions: [
-      { name: "Plane", value: "plane", style: "grey" },
-      { name: "React", value: "react", style: "blue" },
-      { name: "Vue", value: "vue", style: "green" },
-      { name: "Electron", value: "electron", style: "cyanBright" },
+      { name: "React", value: "react", style: "blue", disabled: true },
+      { name: "Vue", value: "vue", style: "green", disabled: true },
+      { name: "Express", value: "express", style: "italic", disabled: true },
+      { name: "Fastify", value: "fastify", style: "redBright", disabled: true },
+      { name: "Electron", value: "electron", style: "cyanBright", disabled: true },
     ],
   } as CLI_SELECT,
 
@@ -49,17 +54,17 @@ export const CONFIG = {
   GIT_REPOSITORY_URL: {
     message: "Enter Git Repository URL :",
     validate: (param: string) => {
-      const regExp = new RegExp(/https:\/\/github\.com\/[a-zA-Z0-9]+\/[a-zA-Z0-9]/);
+      const regExp = new RegExp(/https:\/\/github\.com\/[a-zA-Z0-9]+\/[a-zA-Z0-9]/)
 
       if (param === "") {
-        return false;
+        return false
       }
 
       if (regExp.test(param)) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
   } as CLI_INPUT,
-};
+}

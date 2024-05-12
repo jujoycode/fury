@@ -4,13 +4,14 @@ interface Program {
 
 type PackageManager = "npm" | "pnpm";
 type ProjectLanguage = "js" | "ts";
-type projectTemplate = "plane" | "react" | "vue" | "electron";
+type projectTemplate = "default" | "react" | "vue" | "express" | "fastify" | "electron";
 
 interface ProjectInfo {
   projectName: string;
   packageManager: PackageManager;
   projectLanguage: ProjectLanguage;
   projectTemplate: projectTemplate;
+  frameworkUsage: boolean;
   gitUsage: boolean;
   gitRepoUrl?: string;
 }

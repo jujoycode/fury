@@ -33,9 +33,14 @@ export class CreateProjectCommand extends BaseCommand {
       projectName: await this.CLI.getInputValue(CONFIG.PROJECT_NAME),
       packageManager: await this.CLI.getSeletValue<PackageManager>(CONFIG.PACKAGE_MANAGER),
       projectLanguage: await this.CLI.getSeletValue<ProjectLanguage>(CONFIG.PROJECT_LANG),
-      projectTemplate: await this.CLI.getSeletValue<projectTemplate>(CONFIG.PROJECT_TEMPLATE),
+      projectTemplate: 'default',
+      frameworkUsage: await this.CLI.getConfirmValue(CONFIG.FRAMEWORK_USAGE),
       gitUsage: await this.CLI.getConfirmValue(CONFIG.GIT_USAGE),
     };
+
+    if (projectInfo.frameworkUsage) {
+      projectInfo.projectTemplate = await this.CLI.getSeletValue<projectTemplate>(CONFIG.PROJECT_TEMPLATE);
+    }
 
     if (projectInfo.gitUsage) {
       projectInfo.gitRepoUrl = await this.CLI.getInputValue(CONFIG.GIT_REPOSITORY_URL);
@@ -51,15 +56,11 @@ export class CreateProjectCommand extends BaseCommand {
       throw new Error("Emtpy Info");
     }
 
-    const spinner = this.spinner(' Creating Project...')
-
     // 1. factory 생성
     const projectFactory = new ProjectFactory(this.projectInfo);
 
     // 2. 프로젝트 생성
     await projectFactory.getFactory().build();
-
-    spinner.succeed(' Done')
   }
 
   public async finalize(): Promise<void> {

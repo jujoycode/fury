@@ -1,15 +1,15 @@
 export const folderStructure = {
   js: {
+    index: 'js',
     src: {
-      index: 'js',
       utils: {
         projectUtil: 'js'
       }
     }
   },
   ts: {
+    index: 'ts',
     src: {
-      index: 'ts',
       utils: {
         projectUtil: 'ts'
       }

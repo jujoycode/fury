@@ -20,7 +20,6 @@ export default class Invoker {
         await command.undo()
         console.log('Undo')
       }
-
     })
   }
 }
