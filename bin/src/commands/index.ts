@@ -1,7 +1,7 @@
 import { CreateProjectCommand } from "./createProjectCommand";
-import { GitCommand } from "./gitCommand";
+import { GitPushCommand } from "./gitCommand";
 
 export {
   CreateProjectCommand,
-  GitCommand
+  GitPushCommand
 }

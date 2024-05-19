@@ -5,7 +5,7 @@ import { Program } from "./program";
 import { Invoker, CLI } from "./src/core";
 
 // command
-import { CreateProjectCommand, GitCommand } from './src/commands'
+import { CreateProjectCommand, GitPushCommand } from './src/commands'
 
 // util
 import { Logger } from './src/utils'
@@ -20,7 +20,7 @@ async function main() {
 
   switch (true) {
     case program.Push: {
-      invoker.addCommand(new GitCommand(logger, cli, 'push'))
+      invoker.addCommand(new GitPushCommand(logger, cli))
       break
     };
 
