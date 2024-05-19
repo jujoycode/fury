@@ -11,7 +11,7 @@ interface ProjectInfo {
   packageManager: PackageManager;
   projectLanguage: ProjectLanguage;
   projectTemplate: projectTemplate;
-  frameworkUsage: boolean;
+  frameworkUsage?: boolean;
   gitUsage: boolean;
   gitRepoUrl?: string;
 }

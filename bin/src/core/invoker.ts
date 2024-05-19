@@ -1,9 +1,12 @@
+import { Logger } from "../utils";
 import type { BaseCommand } from "../commands/baseCommand";
 
 export default class Invoker {
+  private Logger: Logger
   private commands: BaseCommand[] = []
 
   constructor() {
+    this.Logger = new Logger()
   }
 
   public addCommand(command: BaseCommand) {
@@ -15,10 +18,9 @@ export default class Invoker {
 
       try {
         await command.run()
-      } catch (error) {
-        console.error(error)
+      } catch (error: any) {
+        this.Logger.error(`${error.message}`)
         await command.undo()
-        console.log('Undo')
       }
     })
   }

@@ -1,22 +1,27 @@
 import { writeFile, mkdir } from 'fs/promises';
+import { existsSync } from 'fs';
 import { join } from 'path';
 
 export class FileUtil {
   constructor() { }
 
-  static joinPath(mainPath: string, subPath: string) {
+  static joinPath(mainPath: string, subPath: string): string {
     return join(mainPath, subPath)
   }
 
-  static async createFile(path: string, fileName: string, fileExtension: string, data: string) {
+  static async createFile(path: string, fileName: string, fileExtension: string, data: string): Promise<void> {
     await writeFile(`${path}/${fileName}.${fileExtension}`, data)
   }
 
-  static async createFolder(folderName: string, path: string) {
+  static async createFolder(folderName: string, path: string): Promise<void> {
     await mkdir(join(path, folderName))
   }
 
-  static async createRecursiveFolder(folderStructure: Record<string, any>, rootPath: string) {
+  static checkExist(path: string): boolean {
+    return existsSync(path)
+  }
+
+  static async createRecursiveFolder(folderStructure: Record<string, any>, rootPath: string): Promise<void> {
     for (const key in folderStructure) {
       const value = folderStructure[key];
 

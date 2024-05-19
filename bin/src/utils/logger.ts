@@ -37,6 +37,11 @@ export class Logger {
     console.log(`${this.getLogInfo()} ${prefix} | ${text}`);
   }
 
+  public error(text: string) {
+    const prefix = this.setStyle(["red"], "ERROR");
+    console.log(`${this.getLogInfo()} ${prefix} | ${text}`);
+  }
+
   public start(text: string) {
     console.log(`${this.getLogInfo()} 📢 ${this.setStyle(["italic", "yellowBright"], text)}`);
   }

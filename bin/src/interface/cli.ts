@@ -19,6 +19,7 @@ interface CLI_SELECT {
     disabled?: boolean | string;
     style?: Style;
   }[];
+  type?: 'select' | 'rawlist'
 }
 
 export {

@@ -1,97 +1,73 @@
-// core
-import { Launcher } from "../core";
-
 // util
-import { FileUtil } from "../utils/fileUtils";
-import { Logger } from "../utils";
+import { Logger, FileUtil, ProjectUtil } from "../utils"
 
 // constants
-import { folderStructure } from "../constants/folderStructure";
+import { folderStructure } from "../constants/folderStructure"
 
 // template
-import jsPackage from "../templates/js.package.json";
-import tsPackage from "../templates/ts.package.json";
-import tsConfig from "../templates/tsconfig.json";
+import jsPackage from "../templates/js.package.json"
+import tsPackage from "../templates/ts.package.json"
+import tsConfig from "../templates/tsconfig.json"
 
 // interface
-import { Factory, Spinner } from "../interface/factory";
-import { ProjectInfo } from "../interface/program";
-import { METHOD } from "../constants/method";
+import { Factory } from "../interface/factory"
+import { ProjectInfo } from "../interface/program"
 
 export class PlaneProjectFactory implements Factory {
   private logger: Logger
-  private Launcher: Launcher
-  public projectInfo: ProjectInfo;
-  public workDir: string;
-  public factorySpinner: Spinner
+  private ProjectUtil: ProjectUtil
+  public projectInfo: ProjectInfo
+  public workDir: string
 
-  constructor(projectInfo: ProjectInfo, workDir: string, factorySpinner: Spinner) {
-    this.workDir = workDir;
-    this.projectInfo = projectInfo;
-    this.factorySpinner = factorySpinner
+  constructor(projectInfo: ProjectInfo, workDir: string) {
+    this.workDir = workDir
+    this.projectInfo = projectInfo
     this.logger = new Logger()
-    this.Launcher = new Launcher()
+    this.ProjectUtil = new ProjectUtil()
   }
 
   public async build(): Promise<void> {
-    const buildSpinner = this.factorySpinner.start('Create Project...')
-    const createDir = this.factorySpinner.render()
-    const createFolder = this.factorySpinner.render()
-    const createJson = this.factorySpinner.render()
-    const installPackage = this.factorySpinner.render()
-
     try {
       // 1. project dir 생성
-      createDir.start('Create Project Directory...')
-
-      await FileUtil.createFolder(this.projectInfo.projectName, this.workDir);
-      this.workDir = FileUtil.joinPath(this.workDir, this.projectInfo.projectName);
-
-      createDir.succeed('Create Project Directory')
+      await this.ProjectUtil.processRun("Create Project Directory", async () => {
+        await FileUtil.createFolder(this.projectInfo.projectName, this.workDir)
+        this.workDir = FileUtil.joinPath(this.workDir, this.projectInfo.projectName)
+      })
 
       // 2. 폴더 구조 생성
-      createFolder.start('Create Folder...')
-
-      await FileUtil.createRecursiveFolder(
-        folderStructure[this.projectInfo.projectLanguage],
-        this.workDir
-      );
-
-      createFolder.succeed('Create Folder')
+      await this.ProjectUtil.processRun("Create Folder", () =>
+        FileUtil.createRecursiveFolder(
+          folderStructure[this.projectInfo.projectLanguage],
+          this.workDir
+        )
+      )
 
       // 3. 설정 파일 추가
-      createJson.start('Create Project Config...')
+      await this.ProjectUtil.processRun("Create Project Config", async () => {
+        let projectPackage = jsPackage
+        if (this.projectInfo.projectLanguage === "ts") {
+          projectPackage = tsPackage
 
-      let projectPackage = jsPackage
-      if (this.projectInfo.projectLanguage === 'ts') {
-        projectPackage = tsPackage
+          await FileUtil.createFile(
+            this.workDir,
+            "tsconfig",
+            "json",
+            JSON.stringify(tsConfig, null, 2)
+          )
+        }
 
+        projectPackage.name = this.projectInfo.projectName
         await FileUtil.createFile(
           this.workDir,
-          "tsconfig",
+          "package",
           "json",
-          JSON.stringify(tsConfig, null, 2)
-        );
-      }
-
-      projectPackage.name = this.projectInfo.projectName
-      await FileUtil.createFile(this.workDir, "package", "json", JSON.stringify(projectPackage, null, 2));
-
-      createJson.succeed('Create Project Config')
-
-      // 4. package 설치
-      this.Launcher.setWorkDir(this.workDir)
-
-      installPackage.start('Install Packages...')
-
-      await this.Launcher.runDirectMethod(METHOD.PACKAGE_INSTALL[this.projectInfo.packageManager])
-
-      installPackage.succeed('Install Packages')
-      buildSpinner.succeed('Done')
+          JSON.stringify(projectPackage, null, 2)
+        )
+      })
 
     } catch (error: any) {
-      buildSpinner.fail('Process Fail')
-      this.logger.debug(error)
+      this.logger.debug(error.message)
+      throw new Error(error.message)
     }
   }
 }

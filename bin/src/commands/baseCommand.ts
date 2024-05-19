@@ -2,9 +2,11 @@ import type { Logger } from "../utils";
 
 export abstract class BaseCommand {
   protected logger: Logger;
+  protected workDir: string;
 
   constructor(logger: Logger) {
     this.logger = logger;
+    this.workDir = process.cwd()
   }
 
   abstract initialize(): Promise<void>;

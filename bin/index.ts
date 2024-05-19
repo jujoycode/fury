@@ -1,7 +1,14 @@
+// program
 import { Program } from "./program";
-import { Logger } from './src/utils/index'
-import { Invoker, CLI } from "./src/core/index";
-import { CreateProjectCommand } from './src/commands/index'
+
+// core
+import { Invoker, CLI } from "./src/core";
+
+// command
+import { CreateProjectCommand, GitCommand } from './src/commands'
+
+// util
+import { Logger } from './src/utils'
 
 async function main() {
   const program = Program()
@@ -13,7 +20,7 @@ async function main() {
 
   switch (true) {
     case program.Push: {
-
+      invoker.addCommand(new GitCommand(logger, cli, 'push'))
       break
     };
 
@@ -24,6 +31,9 @@ async function main() {
   }
 
   await invoker.invoke()
+
+  logger.empty()
+  logger.debug(`Program End`)
 }
 
 main()

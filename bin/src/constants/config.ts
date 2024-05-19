@@ -39,11 +39,11 @@ export const CONFIG = {
   PROJECT_TEMPLATE: {
     question: "Select a Template for Project :",
     choisOptions: [
-      { name: "React", value: "react", style: "blue", disabled: true },
-      { name: "Vue", value: "vue", style: "green", disabled: true },
-      { name: "Express", value: "express", style: "italic", disabled: true },
-      { name: "Fastify", value: "fastify", style: "redBright", disabled: true },
-      { name: "Electron", value: "electron", style: "cyanBright", disabled: true },
+      { name: "React", value: "react", style: "blueBright" },
+      { name: "Vue", value: "vue", style: "green" },
+      { name: "Express", value: "express", style: "italic" },
+      { name: "Fastify", value: "fastify", style: "redBright" },
+      { name: "Electron", value: "electron", style: "cyanBright" },
     ],
   } as CLI_SELECT,
 
