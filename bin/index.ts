@@ -31,9 +31,6 @@ async function main() {
   }
 
   await invoker.invoke()
-
-  logger.empty()
-  logger.debug(`Program End`)
 }
 
 main()

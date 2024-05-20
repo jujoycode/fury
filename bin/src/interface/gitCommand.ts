@@ -1,3 +1,3 @@
-type GitCommandType = 'push' | 'pull' | 'branch'
+type GitPushInfo = { commitMessage: string[] }
 
-export { GitCommandType }
+export { GitPushInfo }

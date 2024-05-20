@@ -1,17 +1,20 @@
 import { BaseCommand } from "./baseCommand";
-import { FileUtil, type Logger } from "../utils";
-
-import type { GitCommandType } from "../interface/gitCommand";
 import { CLI, Launcher } from "../core";
+import { FileUtil, ProjectUtil, type Logger } from "../utils";
+import { CONFIG, METHOD } from "../constants";
+import { GitPushInfo } from "../interface/gitCommand";
 
 export class GitPushCommand extends BaseCommand {
   private CLI: CLI;
   private Launcher: Launcher
+  private ProjectUtil: ProjectUtil
+  private gitPushInfo: GitPushInfo = { commitMessage: METHOD.GIT_COMMIT_COMMAND }
 
   constructor(logger: Logger, CLI: CLI) {
     super(logger)
     this.CLI = CLI;
     this.Launcher = new Launcher()
+    this.ProjectUtil = new ProjectUtil()
 
     this.logger.debug("✨ New Command → GitPushCommand");
   }
@@ -24,12 +27,22 @@ export class GitPushCommand extends BaseCommand {
     }
 
     // 1. gitmoji 선택
+    const commitType = await this.CLI.getSeletValue<string>(CONFIG.COMMIT_TYPE)
     // 2. commit message 생성
+    const message = await this.CLI.getInputValue(CONFIG.COMMIT_MESSAGE)
+    // 3. setting
+    this.gitPushInfo.commitMessage.push(`'${commitType} ${message}'`)
+
+
+    this.logger.debug(`gitInfo : ${JSON.stringify(this.gitPushInfo)}`)
+    this.logger.empty()
   }
 
   async execute(): Promise<void> {
     // 1. 변경사항을 stage로 이동 (git add .)
+    await this.ProjectUtil.processRun('Stage All Changes', async () => await this.Launcher.runDirectMethod(METHOD.GIT_ADD_CHANGES))
     // 2. 메시지 등록 (git commit -m `${gitmoji} ${message}`)
+    await this.ProjectUtil.processRun('Commit Changes', async () => await this.Launcher.runDetailMethod(METHOD.GIT, this.gitPushInfo.commitMessage))
   }
 
   async finalize(): Promise<void> {

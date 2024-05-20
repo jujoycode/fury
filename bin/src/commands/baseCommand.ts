@@ -22,5 +22,4 @@ export abstract class BaseCommand {
 
     await this.finalize();
   }
-
 }

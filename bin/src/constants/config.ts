@@ -67,4 +67,34 @@ export const CONFIG = {
       }
     },
   } as CLI_INPUT,
+
+  COMMIT_TYPE: {
+    question: "Select a Type of Commit :",
+    choisOptions: [
+      { name: "Work in Progress", value: ":construction:", description: "→ 작업중" },
+      { name: "New Feature", value: ":sparkles:", description: "→ 신규 기능 개발" },
+      { name: "Bug Fix", value: ":bug:", description: "→ 버그 수정" },
+      { name: "Refactor Code", value: ":hammer:", description: "→ 코드 리팩토링" },
+      { name: "Performance", value: ":racehorse:", description: "→ 성능 개선" },
+      { name: "Style", value: ":lipstick:", description: "→ 스타일 관련" },
+      { name: "New Dependency", value: ":heavy_plus_sign:", description: "→ 신규 모듈 설치" },
+      { name: "Documentation", value: ":books:", description: "→ 문서 관련" },
+      { name: "Tests", value: ":white_check_mark:", description: "→ 테스트 관련" },
+      { name: "Build", value: ":building_construction:", description: "→ 빌드 관련" },
+      { name: "Deploying", value: ":rocket:", description: "→ 배포" },
+      { name: "CI/CD", value: ":construction_worker:", description: "→ CI/CD 설정 파일 관련" },
+      { name: "Chore", value: ":downcast_face_with_sweet:", description: "→ etc..." },
+    ],
+  } as CLI_SELECT,
+
+  COMMIT_MESSAGE: {
+    message: "Enter Commit Message :",
+    validate: (param: string) => {
+      if (param !== "") {
+        return true
+      } else {
+        return false
+      }
+    },
+  } as CLI_INPUT,
 }
