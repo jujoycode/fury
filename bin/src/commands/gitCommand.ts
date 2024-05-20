@@ -1,29 +1,29 @@
-import { BaseCommand } from "./baseCommand";
-import { CLI, Launcher } from "../core";
-import { FileUtil, ProjectUtil, type Logger } from "../utils";
-import { CONFIG, METHOD } from "../constants";
-import { GitPushInfo } from "../interface/gitCommand";
+import { BaseCommand } from "./baseCommand"
+import { CLI, Launcher } from "../core"
+import { FileUtil, ProjectUtil, type Logger } from "../utils"
+import { CONFIG, METHOD } from "../constants"
+import { GitPushInfo } from "../interface/gitCommand"
 
 export class GitPushCommand extends BaseCommand {
-  private CLI: CLI;
+  private CLI: CLI
   private Launcher: Launcher
   private ProjectUtil: ProjectUtil
   private gitPushInfo: GitPushInfo = { commitMessage: METHOD.GIT_COMMIT_COMMAND }
 
   constructor(logger: Logger, CLI: CLI) {
     super(logger)
-    this.CLI = CLI;
+    this.CLI = CLI
     this.Launcher = new Launcher()
     this.ProjectUtil = new ProjectUtil()
 
-    this.logger.debug("✨ New Command → GitPushCommand");
+    this.logger.debug("✨ New Command → GitPushCommand")
   }
 
   async initialize(): Promise<void> {
     // 0. .git 파일 확인
-    const gitUsageFlag = FileUtil.checkExist(FileUtil.joinPath(this.workDir, '.git'))
+    const gitUsageFlag = FileUtil.checkExist(FileUtil.joinPath(this.workDir, ".git"))
     if (!gitUsageFlag) {
-      throw new Error('This Project not use Git')
+      throw new Error("This Project not use Git")
     }
 
     // 1. gitmoji 선택
@@ -31,8 +31,7 @@ export class GitPushCommand extends BaseCommand {
     // 2. commit message 생성
     const message = await this.CLI.getInputValue(CONFIG.COMMIT_MESSAGE)
     // 3. setting
-    this.gitPushInfo.commitMessage.push(`'${commitType} ${message}'`)
-
+    this.gitPushInfo.commitMessage.push(`${commitType} ${message}`)
 
     this.logger.debug(`gitInfo : ${JSON.stringify(this.gitPushInfo)}`)
     this.logger.empty()
@@ -40,9 +39,15 @@ export class GitPushCommand extends BaseCommand {
 
   async execute(): Promise<void> {
     // 1. 변경사항을 stage로 이동 (git add .)
-    await this.ProjectUtil.processRun('Stage All Changes', async () => await this.Launcher.runDirectMethod(METHOD.GIT_ADD_CHANGES))
+    await this.ProjectUtil.processRun(
+      "Stage All Changes",
+      async () => await this.Launcher.runDirectMethod(METHOD.GIT_ADD_CHANGES)
+    )
     // 2. 메시지 등록 (git commit -m `${gitmoji} ${message}`)
-    await this.ProjectUtil.processRun('Commit Changes', async () => await this.Launcher.runDetailMethod(METHOD.GIT, this.gitPushInfo.commitMessage))
+    await this.ProjectUtil.processRun(
+      "Commit Changes",
+      async () => await this.Launcher.runDetailMethod(METHOD.GIT, this.gitPushInfo.commitMessage)
+    )
   }
 
   async finalize(): Promise<void> {
@@ -52,7 +57,6 @@ export class GitPushCommand extends BaseCommand {
 
   async undo(): Promise<void> {
     // 1. 원격 저장소에 push 되지 않은 경우 (git reset HEAD)
-
     // 2. 원격 저장소에 push된 경우 (git reset --hard && git push --hard)
   }
 }
