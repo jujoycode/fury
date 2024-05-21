@@ -97,4 +97,8 @@ export const CONFIG = {
       }
     },
   } as CLI_INPUT,
+
+  PUSH_PERMISION: {
+    message: "Do you want to push to Remote Repo? :",
+  } as CLI_CONFIRM,
 }

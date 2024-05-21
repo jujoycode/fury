@@ -11,6 +11,7 @@ export const METHOD = {
   GIT_ADD_REMOTE: 'git remote add origin @',
   GIT_ADD_CHANGES: 'git add .',
   GIT_COMMIT_COMMAND: ['commit', '-m'],
+  GIT_PUSH: 'git push',
 
   REMOVE_PROJECT: 'rm -rf @'
 } 

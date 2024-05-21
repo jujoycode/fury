@@ -27,11 +27,13 @@ export class GitPushCommand extends BaseCommand {
     }
 
     // 1. gitmoji 선택
-    const commitType = await this.CLI.getSeletValue<string>(CONFIG.COMMIT_TYPE)
+    const gitmoji = await this.CLI.getSeletValue<string>(CONFIG.COMMIT_TYPE)
+
     // 2. commit message 생성
     const message = await this.CLI.getInputValue(CONFIG.COMMIT_MESSAGE)
+
     // 3. setting
-    this.gitPushInfo.commitMessage.push(`${commitType} ${message}`)
+    this.gitPushInfo.commitMessage.push(`${gitmoji} ${message}`)
 
     this.logger.debug(`gitInfo : ${JSON.stringify(this.gitPushInfo)}`)
     this.logger.empty()
@@ -43,6 +45,7 @@ export class GitPushCommand extends BaseCommand {
       "Stage All Changes",
       async () => await this.Launcher.runDirectMethod(METHOD.GIT_ADD_CHANGES)
     )
+
     // 2. 메시지 등록 (git commit -m `${gitmoji} ${message}`)
     await this.ProjectUtil.processRun(
       "Commit Changes",
@@ -52,7 +55,16 @@ export class GitPushCommand extends BaseCommand {
 
   async finalize(): Promise<void> {
     // 1. 원격 저장소 push 여부 확인
+    const pushPermision = await this.CLI.getInputValue(CONFIG.PUSH_PERMISION)
+
     // 2. 원격 저장소 push 실행 (git push)
+    if (pushPermision) {
+      this.Launcher.setMethod(METHOD.GIT_PUSH)
+      await this.ProjectUtil.processRun(
+        "Push Commit to Remote Repo",
+        async () => await this.Launcher.runMethod()
+      )
+    }
   }
 
   async undo(): Promise<void> {
