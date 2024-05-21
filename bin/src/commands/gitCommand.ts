@@ -15,11 +15,11 @@ export class GitPushCommand extends BaseCommand {
     this.CLI = CLI
     this.Launcher = new Launcher()
     this.ProjectUtil = new ProjectUtil()
-
-    this.logger.debug("✨ New Command → GitPushCommand")
   }
 
   async initialize(): Promise<void> {
+    this.logger.empty()
+
     // 0. .git 파일 확인
     const gitUsageFlag = FileUtil.checkExist(FileUtil.joinPath(this.workDir, ".git"))
     if (!gitUsageFlag) {
@@ -35,7 +35,6 @@ export class GitPushCommand extends BaseCommand {
     // 3. setting
     this.gitPushInfo.commitMessage.push(`${gitmoji} ${message}`)
 
-    this.logger.debug(`gitInfo : ${JSON.stringify(this.gitPushInfo)}`)
     this.logger.empty()
   }
 
