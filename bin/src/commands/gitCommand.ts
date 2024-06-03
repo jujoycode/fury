@@ -10,6 +10,7 @@ export class GitPushCommand extends BaseCommand {
   private ProjectUtil: ProjectUtil
   private gitPushInfo: GitPushInfo = {
     commitMessage: METHOD.GIT_COMMIT_COMMAND,
+    pushPermision: false,
     stageFlag: false,
     commitFlag: false,
     pushFlag: false
@@ -37,12 +38,11 @@ export class GitPushCommand extends BaseCommand {
     // 2. commit message 생성
     const message = await this.CLI.getInputValue(CONFIG.COMMIT_MESSAGE)
 
-    // 3. 원격 저장소 push 여부 확인
-    const pushPermision = await this.CLI.getInputValue(CONFIG.PUSH_PERMISION)
-
-
     // 3. setting
     this.gitPushInfo.commitMessage.push(`${gitmoji} ${message}`)
+
+    // 4. 원격 저장소 push 여부 확인
+    this.gitPushInfo.pushPermision = await this.CLI.getConfirmValue(CONFIG.PUSH_PERMISION)
 
     this.logger.empty()
   }
@@ -64,11 +64,8 @@ export class GitPushCommand extends BaseCommand {
   }
 
   async finalize(): Promise<void> {
-    // 1. 원격 저장소 push 여부 확인
-    const pushPermision = await this.CLI.getConfirmValue(CONFIG.PUSH_PERMISION)
-
-    // 2. 원격 저장소 push 실행 (git push)
-    if (pushPermision) {
+    // 1. 원격 저장소 push 실행 (git push)
+    if (this.gitPushInfo.pushPermision) {
       this.gitPushInfo.pushFlag = true
 
       this.Launcher.setMethod(METHOD.GIT_PUSH)
