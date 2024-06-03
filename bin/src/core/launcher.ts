@@ -1,4 +1,4 @@
-import { $, execa } from "execa";
+import { $ } from "execa";
 
 export default class Launcher {
   private methods: string[] = []
@@ -30,7 +30,7 @@ export default class Launcher {
   }
 
   public async runDetailMethod(method: string, option: string[]) {
-    const res = await execa(method, option)
+    const res = await $(method, option)
     return res
   }
 }

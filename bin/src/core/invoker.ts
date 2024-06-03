@@ -19,6 +19,7 @@ export default class Invoker {
       try {
         await command.run()
       } catch (error: any) {
+        this.Logger.debug(`Rollback Process...`)
         this.Logger.error(`${error.message}`)
         await command.undo()
       }

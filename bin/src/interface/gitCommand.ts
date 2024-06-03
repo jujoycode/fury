@@ -1,3 +1,9 @@
-type GitPushInfo = { commitMessage: string[] }
+type GitPushInfo = {
+  commitMessage: string[],
+
+  stageFlag: boolean
+  commitFlag: boolean
+  pushFlag: boolean
+}
 
 export { GitPushInfo }
