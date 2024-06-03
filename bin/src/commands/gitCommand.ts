@@ -65,7 +65,7 @@ export class GitPushCommand extends BaseCommand {
 
   async finalize(): Promise<void> {
     // 1. 원격 저장소 push 여부 확인
-    const pushPermision = await this.CLI.getInputValue(CONFIG.PUSH_PERMISION)
+    const pushPermision = await this.CLI.getConfirmValue(CONFIG.PUSH_PERMISION)
 
     // 2. 원격 저장소 push 실행 (git push)
     if (pushPermision) {
