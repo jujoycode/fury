@@ -1,5 +1,5 @@
-import { Logger } from "../utils";
-import type { BaseCommand } from "../commands/baseCommand";
+import { Logger } from '../utils'
+import type { BaseCommand } from '../commands/baseCommand'
 
 export default class Invoker {
   private Logger: Logger
@@ -14,13 +14,12 @@ export default class Invoker {
   }
 
   public async invoke() {
-    this.commands.forEach(async (command) => {
-
+    this.commands.forEach(async command => {
       try {
         await command.run()
       } catch (error: any) {
-        this.Logger.debug(`Rollback Process...`)
         this.Logger.error(`${error.message}`)
+        this.Logger.debug(`Rollback Process...`)
         await command.undo()
       }
     })
