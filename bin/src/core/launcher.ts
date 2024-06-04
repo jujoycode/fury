@@ -1,10 +1,14 @@
-import { $, execa } from "execa";
+import { $, execa } from 'execa'
 
 export default class Launcher {
   private methods: string[] = []
   private cwd: string = process.cwd()
 
-  constructor() { }
+  constructor() {}
+
+  public clear() {
+    this.methods = []
+  }
 
   public setWorkDir(path: string) {
     this.cwd = path
@@ -15,13 +19,15 @@ export default class Launcher {
   }
 
   public async runMethod() {
-    for (let i = 0; i < this.methods.length; i++) {
-      const method = this.methods[i];
+    try {
+      for (let i = 0; i < this.methods.length; i++) {
+        const method = this.methods[i]
 
-      await $({ cwd: this.cwd })`${method}`
+        await $({ cwd: this.cwd })`${method}`
+      }
+    } finally {
+      this.methods = []
     }
-
-    this.methods = []
   }
 
   public async runDirectMethod(method: string) {
