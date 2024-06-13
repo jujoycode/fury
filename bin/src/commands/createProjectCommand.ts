@@ -1,18 +1,18 @@
 // base
-import { BaseCommand } from "./baseCommand"
+import { BaseCommand } from './baseCommand'
 // constant
-import { CONFIG, METHOD } from "../constants"
+import { CONFIG, METHOD } from '../constants'
 // factory
-import { ProjectFactory } from "../factory"
+import { ProjectFactory } from '../factory'
 // interface
-import { FileUtil, ProjectUtil, type Logger } from "../utils"
-import { type CLI, Launcher } from "../core"
+import { FileUtil, ProjectUtil, type Logger } from '../utils'
+import { type CLI, Launcher } from '../core'
 import {
   PackageManager,
   ProjectInfo,
-  ProjectLanguage,
+  ProjectLanguage
   // projectTemplate,
-} from "../interface/program"
+} from '../interface/program'
 
 export class CreateProjectCommand extends BaseCommand {
   private CLI: CLI
@@ -27,7 +27,7 @@ export class CreateProjectCommand extends BaseCommand {
     this.Launcher = new Launcher()
     this.ProjectUtil = new ProjectUtil()
 
-    this.logger.debug("✨ New Command → CreateProjectCommand")
+    this.logger.debug('✨ New Command → CreateProjectCommand')
   }
 
   public async initialize(): Promise<void> {
@@ -35,9 +35,9 @@ export class CreateProjectCommand extends BaseCommand {
       projectName: await this.CLI.getInputValue(CONFIG.PROJECT_NAME),
       packageManager: await this.CLI.getSeletValue<PackageManager>(CONFIG.PACKAGE_MANAGER),
       projectLanguage: await this.CLI.getSeletValue<ProjectLanguage>(CONFIG.PROJECT_LANG),
-      projectTemplate: "default",
+      projectTemplate: 'default',
       // frameworkUsage: await this.CLI.getConfirmValue(CONFIG.FRAMEWORK_USAGE),
-      gitUsage: await this.CLI.getConfirmValue(CONFIG.GIT_USAGE),
+      gitUsage: await this.CLI.getConfirmValue(CONFIG.GIT_USAGE)
     }
 
     //TODO: 프레임워크 탬플릿 제작 시 사용
@@ -55,7 +55,7 @@ export class CreateProjectCommand extends BaseCommand {
 
   public async execute(): Promise<void> {
     if (this.projectInfo === null) {
-      throw new Error("Emtpy Info")
+      throw new Error('Emtpy Info')
     }
     if (FileUtil.checkExist(this.workDir)) {
       this.alreadyExistFlag = true
@@ -75,31 +75,38 @@ export class CreateProjectCommand extends BaseCommand {
 
     // 4. if using git, setting
     if (this.projectInfo?.gitUsage) {
-      this.Launcher.setMethod(METHOD.GIT_INIT)
-      this.Launcher.setMethod(METHOD.GIT_ADD_REMOTE.replace("@", this.projectInfo.gitRepoUrl!))
-
       await this.ProjectUtil.processRun(
-        "Connect Git Repository",
-        async () => await this.Launcher.runMethod()
+        'Git Init',
+        async () => await this.Launcher.run(METHOD.GIT, METHOD.GIT_INIT)
+      )
+
+      const arrCommand = METHOD.GIT_ADD_REMOTE.concat(this.projectInfo.gitRepoUrl!)
+      await this.ProjectUtil.processRun(
+        'Connect Git Repository',
+        async () => await this.Launcher.run(METHOD.GIT, arrCommand)
       )
     }
 
     // 5. install package
-    this.Launcher.setMethod(METHOD.PACKAGE_INSTALL[this.projectInfo!.packageManager])
     await this.ProjectUtil.processRun(
-      "Install Package",
-      async () => await this.Launcher.runMethod()
+      'Install Package',
+      async () =>
+        await this.Launcher.run(
+          this.projectInfo!.packageManager,
+          METHOD.PACKAGE_INSTALL[this.projectInfo!.packageManager]
+        )
     )
   }
 
   public async undo(): Promise<void> {
+    this.Launcher.setWorkDir(process.cwd())
+
     // NOTE: alreadyExistFlag가 true라면 삭제할 필요가 없으니 false를 할당
     const deleteFlag = this.alreadyExistFlag ? false : FileUtil.checkExist(this.workDir)
 
     if (deleteFlag) {
-      this.Launcher.runDirectMethod(
-        METHOD.REMOVE_PROJECT.replace("@", this.projectInfo!.projectName)
-      )
+      const arrCommand = METHOD.REMOVE_ALL_OPTION.concat(this.projectInfo!.projectName)
+      await this.Launcher.run(METHOD.REMOVE, arrCommand)
     }
 
     this.logger.info(`Rollback End, Please Troubleshoot and Try again`)

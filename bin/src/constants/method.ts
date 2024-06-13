@@ -1,9 +1,9 @@
 export const METHOD = {
   PACKAGE_INSTALL: {
-    npm: 'npm install --save',
-    yarn: 'yarn',
-    pnpm: 'pnpm install',
-    bun: 'bun install'
+    npm: ['install', '--save'],
+    yarn: [],
+    pnpm: ['install'],
+    bun: ['install']
   },
 
   GIT: 'git',
@@ -16,5 +16,6 @@ export const METHOD = {
   GIT_RESET_HEAD: ['reset', 'HEAD^'],
   GIT_RESET: ['reset'],
 
-  REMOVE_PROJECT: 'rm -rf @'
+  REMOVE: 'rm',
+  REMOVE_ALL_OPTION: ['-rf']
 }

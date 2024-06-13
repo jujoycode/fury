@@ -58,14 +58,14 @@ export class GitPushCommand extends BaseCommand {
     // 1. 변경사항을 stage로 이동 (git add .)
     await this.ProjectUtil.processRun(
       'Stage All Changes',
-      async () => await this.Launcher.runDetailMethod(METHOD.GIT, METHOD.GIT_ADD_CHANGES)
+      async () => await this.Launcher.run(METHOD.GIT, METHOD.GIT_ADD_CHANGES)
     )
     this.gitPushInfo.stageFlag = true
 
     // 2. 메시지 등록 (git commit -m `${gitmoji} ${message}`)
     await this.ProjectUtil.processRun(
       'Commit Changes',
-      async () => await this.Launcher.runDetailMethod(METHOD.GIT, this.gitPushInfo.commitMessage)
+      async () => await this.Launcher.run(METHOD.GIT, this.gitPushInfo.commitMessage)
     )
     this.gitPushInfo.commitFlag = true
   }
@@ -77,15 +77,12 @@ export class GitPushCommand extends BaseCommand {
 
       await this.ProjectUtil.processRun(
         'Push Commit to Remote Repo',
-        async () => await this.Launcher.runDetailMethod(METHOD.GIT, METHOD.GIT_PUSH)
+        async () => await this.Launcher.run(METHOD.GIT, METHOD.GIT_PUSH)
       )
     }
   }
 
   async undo(): Promise<void> {
-    // 0. Reset Method
-    this.Launcher.clear()
-
     let rollbackCommand: string[]
 
     // 1. Revert Remote Push
@@ -103,7 +100,7 @@ export class GitPushCommand extends BaseCommand {
 
     await this.ProjectUtil.processRun(
       'Reset Previouse Commit',
-      async () => await this.Launcher.runDetailMethod(METHOD.GIT, rollbackCommand)
+      async () => await this.Launcher.run(METHOD.GIT, rollbackCommand)
     )
 
     this.logger.info(`Rollback End, Please Troubleshoot and Try again`)
