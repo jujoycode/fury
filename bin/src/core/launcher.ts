@@ -14,9 +14,4 @@ export default class Launcher {
     const res = await execa(method, option, { cwd: this.cwd })
     return res
   }
-
-  public async runDirectMethod(method: string) {
-    const res = await $({ cwd: this.cwd })`${method}`
-    return res
-  }
 }

@@ -1,8 +1,8 @@
 // program
-import { Program } from "./program";
+import { Program } from './program'
 
 // core
-import { Invoker, CLI } from "./src/core";
+import { Invoker, CLI } from './src/core'
 
 // command
 import { CreateProjectCommand, GitPushCommand } from './src/commands'
@@ -16,18 +16,16 @@ async function main() {
   const invoker = new Invoker()
   const cli = new CLI(logger)
 
-  logger.debug(`Program Start`)
-
   switch (true) {
     case program.Push: {
       invoker.addCommand(new GitPushCommand(logger, cli))
       break
-    };
+    }
 
     default: {
       invoker.addCommand(new CreateProjectCommand(logger, cli))
       break
-    };
+    }
   }
 
   await invoker.invoke()
