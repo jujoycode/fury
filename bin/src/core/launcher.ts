@@ -4,7 +4,7 @@ export default class Launcher {
   private method: string = ''
   private cwd: string = process.cwd()
 
-  constructor() {}
+  constructor() { }
 
   public setWorkDir(path: string) {
     this.cwd = path
