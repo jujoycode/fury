@@ -26,8 +26,6 @@ export class CreateProjectCommand extends BaseCommand {
     this.CLI = CLI
     this.Launcher = new Launcher()
     this.ProjectUtil = new ProjectUtil()
-
-    this.logger.debug('✨ New Command → CreateProjectCommand')
   }
 
   public async initialize(): Promise<void> {
@@ -54,6 +52,8 @@ export class CreateProjectCommand extends BaseCommand {
   }
 
   public async execute(): Promise<void> {
+    this.logger.empty()
+
     if (this.projectInfo === null) {
       throw new Error('Emtpy Info')
     }

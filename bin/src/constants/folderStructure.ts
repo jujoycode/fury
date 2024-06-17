@@ -2,6 +2,9 @@ export const folderStructure = {
   js: {
     index: 'js',
     src: {
+      constant: {
+        projectConstant: 'js'
+      },
       utils: {
         projectUtil: 'js'
       }
@@ -10,6 +13,10 @@ export const folderStructure = {
   ts: {
     index: 'ts',
     src: {
+      interface: 'ts',
+      constant: {
+        projectConstant: 'ts'
+      },
       utils: {
         projectUtil: 'ts'
       }

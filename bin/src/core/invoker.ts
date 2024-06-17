@@ -16,7 +16,12 @@ export default class Invoker {
   public async invoke() {
     this.commands.forEach(async command => {
       try {
+        console.time('🔥')
+
         await command.run()
+
+        this.Logger.empty()
+        console.timeEnd('🔥')
       } catch (error: any) {
         this.Logger.error(`${error.message}`)
         this.Logger.debug(`Rollback Process...`)
