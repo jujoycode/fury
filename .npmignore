@@ -1,5 +1,9 @@
-bin
-script
+./bin
+
+./script
+
 .prettierrc.yaml
-pnpm-lock.yaml
-tsconfig.json
+
+./pnpm-lock.yaml
+
+./tsconfig.json
