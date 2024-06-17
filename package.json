@@ -1,15 +1,27 @@
 {
   "name": "fury-tool",
-  "version": "1.2.0",
-  "description": "",
-  "main": "bundle.js",
+  "version": "1.2.1",
+  "description": "Project generator for Node.js, supports various templates.",
+  "main": "./dist/bundle.js",
   "scripts": {
     "build": "rm -rf dist && node ./scripts/build.mjs",
     "dev": "pnpm build && node ./dist/bundle.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "bin": {
+    "fury": "dist/bundle.js"
+  },
+  "keywords": [
+    "cli",
+    "git",
+    "Node",
+    "JavaScript",
+    "tool"
+  ],
+  "author": {
+    "name": "jujoycode",
+    "email": "jh.b.ryu@gmail.com"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.12.7",
     "esbuild": "^0.20.2",
