@@ -1,8 +1,8 @@
 {
-  "name": "fury2",
-  "version": "1.0.0",
+  "name": "fury-tool",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bundle.js",
   "scripts": {
     "build": "rm -rf dist && node ./scripts/build.mjs",
     "dev": "pnpm build && node ./dist/bundle.js"
