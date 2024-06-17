@@ -1,6 +1,6 @@
 {
   "name": "fury-tool",
-  "version": "1.2.3-beta.1",
+  "version": "1.2.3-beta.2",
   "description": "Tool that helps developers in a variety of tasks",
   "main": "dist/bundle.js",
   "scripts": {
