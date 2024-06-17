@@ -1,6 +1,6 @@
 {
   "name": "fury-tool",
-  "version": "1.2.3-beta.2",
+  "version": "1.2.3-beta.3",
   "description": "Tool that helps developers in a variety of tasks",
   "main": "dist/app.js",
   "scripts": {
