@@ -1,18 +1,18 @@
-import * as esbuild from "esbuild";
+import * as esbuild from 'esbuild'
 
 await esbuild
   .build({
-    entryPoints: ["bin/index.ts"],
-    outfile: "dist/bundle.js",
-    logLevel: "info",
+    entryPoints: ['bin/index.ts'],
+    outfile: 'dist/app.js',
+    logLevel: 'info',
     bundle: true,
     minify: true,
     treeShaking: true,
-    format: "cjs",
-    platform: "node",
-    target: "node16",
+    format: 'cjs',
+    platform: 'node',
+    target: 'node16'
   })
   .then(() => {
-    console.log("");
+    console.log('')
   })
-  .catch(() => process.exit(1));
+  .catch(() => process.exit(1))
