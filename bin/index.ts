@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // program
 import { Program } from './program'
 
