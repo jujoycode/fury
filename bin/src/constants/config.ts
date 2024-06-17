@@ -71,19 +71,19 @@ export const CONFIG = {
   COMMIT_TYPE: {
     question: 'Select a Type of Commit :',
     choisOptions: [
-      { name: '🚧 Work in Progress', value: ':construction:', description: '→ 작업중' },
-      { name: '✨ New Feature', value: ':sparkles:', description: '→ 신규 기능 개발' },
-      { name: '🐛 Bug Fix', value: ':bug:', description: '→ 버그 수정' },
-      { name: '🔨 Refactor Code', value: ':hammer:', description: '→ 코드 리팩토링' },
-      { name: '⚡️ Performance', value: ':zap:', description: '→ 성능 개선' },
-      { name: '💄 Style', value: ':lipstick:', description: '→ 스타일 관련' },
-      { name: '➕ New Dependency', value: ':heavy_plus_sign:', description: '→ 신규 모듈 설치' },
-      { name: '📝 Documentation', value: ':memo:', description: '→ 문서 관련' },
-      { name: '✅ Tests', value: ':white_check_mark:', description: '→ 테스트 관련' },
-      { name: '🏗️ Build', value: ':building_construction:', description: '→ 빌드 관련' },
-      { name: '🚀 Deploying', value: ':rocket:', description: '→ 배포' },
-      { name: '👷 CI/CD', value: ':construction_worker:', description: '→ CI/CD 설정 파일 관련' },
-      { name: '🧑‍💻 Chore', value: ':technologist:', description: '→ etc...' }
+      { name: '🚧 - Work in Progress', value: ':construction:' },
+      { name: '✨ - New Feature', value: ':sparkles:' },
+      { name: '🐛 - Bug Fix', value: ':bug:' },
+      { name: '🔨 - Refactor Code', value: ':hammer:' },
+      { name: '⚡️ - Performance', value: ':zap:' },
+      { name: '💄 - Style', value: ':lipstick:' },
+      { name: '➕ - New Dependency', value: ':heavy_plus_sign:' },
+      { name: '📝 - Documentation', value: ':memo:' },
+      { name: '✅ - Tests', value: ':white_check_mark:' },
+      { name: '🏗️  - Build', value: ':building_construction:' },
+      { name: '🚀 - Deploying', value: ':rocket:' },
+      { name: '👷 - CI/CD', value: ':construction_worker:' },
+      { name: '🐌 - Chore', value: '🐌' }
     ]
   } as CLI_SELECT,
 
