@@ -20,6 +20,9 @@ importers:
       execa:
         specifier: ^9.0.2
         version: 9.1.0
+      fury-tool:
+        specifier: 1.2.3-beta.1
+        version: 1.2.3-beta.1
       inquirer:
         specifier: ^9.2.20
         version: 9.2.23
@@ -411,6 +414,10 @@ packages:
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
+
+  fury-tool@1.2.3-beta.1:
+    resolution: {integrity: sha512-1znERr9GNUfckM1Ih5Rc58vl/PTj+0hVja9vRZvjVeDE3IUXiJg7wwUa36R163g+L5OANxXTcqRgeUR3F6r/jQ==}
+    hasBin: true
 
   get-east-asian-width@1.2.0:
     resolution: {integrity: sha512-2nk+7SIVb14QrgXFHcm84tD4bKQz0RxPuMT8Ag5KPOq7J5fEmAg0UbXdTOSHqNuHSU28k55qnceesxXRZGzKWA==}
@@ -1037,6 +1044,16 @@ snapshots:
       is-unicode-supported: 2.0.0
 
   function-bind@1.1.2: {}
+
+  fury-tool@1.2.3-beta.1:
+    dependencies:
+      '@inquirer/prompts': 5.0.5
+      chalk: 5.3.0
+      commander: 12.1.0
+      execa: 9.1.0
+      inquirer: 9.2.23
+      moment: 2.30.1
+      ora: 8.0.1
 
   get-east-asian-width@1.2.0: {}
 

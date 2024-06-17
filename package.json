@@ -1,10 +1,10 @@
 {
   "name": "fury-tool",
   "version": "1.2.3-beta.1",
-  "description": "Project generator for Node.js, supports various templates.",
+  "description": "Tool that helps developers in a variety of tasks",
   "main": "dist/bundle.js",
   "scripts": {
-    "build": "rm -rf dist && node ./scripts/build.mjs",
+    "build": "rm -rf dist && node ./scripts/build.mjs && tsc",
     "dev": "pnpm build && node ./dist/bundle.js"
   },
   "bin": {
@@ -33,6 +33,7 @@
     "chalk": "^5.3.0",
     "commander": "^12.0.0",
     "execa": "^9.0.2",
+    "fury-tool": "1.2.3-beta.1",
     "inquirer": "^9.2.20",
     "moment": "^2.30.1",
     "ora": "^8.0.1"
