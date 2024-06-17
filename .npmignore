@@ -1,4 +1,5 @@
 bin
+script
 .prettierrc.yaml
 pnpm-lock.yaml
 tsconfig.json
