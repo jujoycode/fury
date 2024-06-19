@@ -1,4 +1,4 @@
-<img width="80px" height="45px" align="right" alt="Fury Logo" src="./assets/fury_logo2.png" title="fury" />
+<img width="80px" height="45px" align="right" alt="Fury Logo" src="./assets/fury_logo2.jpeg" title="fury" />
 
 # Fury
 

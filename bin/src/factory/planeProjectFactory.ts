@@ -1,17 +1,17 @@
 // util
-import { Logger, FileUtil, ProjectUtil } from "../utils"
+import { Logger, FileUtil, ProjectUtil } from '../utils'
 
 // constants
-import { folderStructure } from "../constants/folderStructure"
+import { folderStructure } from '../constants/folderStructure'
 
 // template
-import jsPackage from "../templates/js.package.json"
-import tsPackage from "../templates/ts.package.json"
-import tsConfig from "../templates/tsconfig.json"
+import jsPackage from '../templates/js.package.json'
+import tsPackage from '../templates/ts.package.json'
+import tsConfig from '../templates/tsconfig.json'
 
 // interface
-import { Factory } from "../interface/factory"
-import { ProjectInfo } from "../interface/program"
+import { Factory } from '../interface/factory'
+import { ProjectInfo } from '../interface/program'
 
 export class PlaneProjectFactory implements Factory {
   private logger: Logger
@@ -28,14 +28,14 @@ export class PlaneProjectFactory implements Factory {
 
   public async build(): Promise<void> {
     try {
-      // 1. project dir 생성
-      await this.ProjectUtil.processRun("Create Project Directory", async () => {
+      // 1. Directory 생성
+      await this.ProjectUtil.processRun('Create Project Directory', async () => {
         await FileUtil.createFolder(this.projectInfo.projectName, this.workDir)
         this.workDir = FileUtil.joinPath(this.workDir, this.projectInfo.projectName)
       })
 
       // 2. 폴더 구조 생성
-      await this.ProjectUtil.processRun("Create Folder", () =>
+      await this.ProjectUtil.processRun('Create Folder', () =>
         FileUtil.createRecursiveFolder(
           folderStructure[this.projectInfo.projectLanguage],
           this.workDir
@@ -43,15 +43,15 @@ export class PlaneProjectFactory implements Factory {
       )
 
       // 3. 설정 파일 추가
-      await this.ProjectUtil.processRun("Create Project Config", async () => {
+      await this.ProjectUtil.processRun('Create Project Config', async () => {
         let projectPackage = jsPackage
-        if (this.projectInfo.projectLanguage === "ts") {
+        if (this.projectInfo.projectLanguage === 'ts') {
           projectPackage = tsPackage
 
           await FileUtil.createFile(
             this.workDir,
-            "tsconfig",
-            "json",
+            'tsconfig',
+            'json',
             JSON.stringify(tsConfig, null, 2)
           )
         }
@@ -59,12 +59,14 @@ export class PlaneProjectFactory implements Factory {
         projectPackage.name = this.projectInfo.projectName
         await FileUtil.createFile(
           this.workDir,
-          "package",
-          "json",
+          'package',
+          'json',
           JSON.stringify(projectPackage, null, 2)
         )
       })
 
+      // 4. Prettier / ESLint
+      // ------------------------
     } catch (error: any) {
       this.logger.debug(error.message)
       throw new Error(error.message)

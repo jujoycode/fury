@@ -19,6 +19,7 @@ export class CreateProjectCommand extends BaseCommand {
   private Launcher: Launcher
   private ProjectUtil: ProjectUtil
   private projectInfo: ProjectInfo | null = null
+  private dataInputFlag = false
   private alreadyExistFlag = false
 
   constructor(logger: Logger, CLI: CLI) {
@@ -31,8 +32,8 @@ export class CreateProjectCommand extends BaseCommand {
   public async initialize(): Promise<void> {
     const projectInfo: ProjectInfo = {
       projectName: await this.CLI.getInputValue(CONFIG.PROJECT_NAME),
-      packageManager: await this.CLI.getSeletValue<PackageManager>(CONFIG.PACKAGE_MANAGER),
       projectLanguage: await this.CLI.getSeletValue<ProjectLanguage>(CONFIG.PROJECT_LANG),
+      packageManager: await this.CLI.getSeletValue<PackageManager>(CONFIG.PACKAGE_MANAGER),
       projectTemplate: 'default',
       // frameworkUsage: await this.CLI.getConfirmValue(CONFIG.FRAMEWORK_USAGE),
       gitUsage: await this.CLI.getConfirmValue(CONFIG.GIT_USAGE)
@@ -46,6 +47,8 @@ export class CreateProjectCommand extends BaseCommand {
     if (projectInfo.gitUsage) {
       projectInfo.gitRepoUrl = await this.CLI.getInputValue(CONFIG.GIT_REPOSITORY_URL)
     }
+
+    this.dataInputFlag = true
 
     this.workDir = FileUtil.joinPath(process.cwd(), projectInfo.projectName)
     this.projectInfo = projectInfo
@@ -70,7 +73,7 @@ export class CreateProjectCommand extends BaseCommand {
   }
 
   public async finalize(): Promise<void> {
-    // 4. set working dir
+    // 3. set working dir
     this.Launcher.setWorkDir(this.workDir)
 
     // 4. if using git, setting
@@ -101,12 +104,14 @@ export class CreateProjectCommand extends BaseCommand {
   public async undo(): Promise<void> {
     this.Launcher.setWorkDir(process.cwd())
 
-    // NOTE: alreadyExistFlag가 true라면 삭제할 필요가 없으니 false를 할당
-    const deleteFlag = this.alreadyExistFlag ? false : FileUtil.checkExist(this.workDir)
+    if (this.dataInputFlag) {
+      // NOTE: alreadyExistFlag가 true라면 삭제할 필요가 없으니 false를 할당
+      const deleteFlag = this.alreadyExistFlag ? false : FileUtil.checkExist(this.workDir)
 
-    if (deleteFlag) {
-      const arrCommand = METHOD.REMOVE_ALL_OPTION.concat(this.projectInfo!.projectName)
-      await this.Launcher.run(METHOD.REMOVE, arrCommand)
+      if (deleteFlag) {
+        const arrCommand = METHOD.REMOVE_ALL_OPTION.concat(this.projectInfo!.projectName)
+        await this.Launcher.run(METHOD.REMOVE, arrCommand)
+      }
     }
 
     this.logger.info(`Rollback End, Please Troubleshoot and Try again`)

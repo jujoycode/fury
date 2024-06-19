@@ -1,6 +1,6 @@
 {
   "name": "fury-tool",
-  "version": "1.2.3-beta.3",
+  "version": "1.2.4",
   "description": "Tool that helps developers in a variety of tasks",
   "main": "dist/app.js",
   "scripts": {
@@ -10,18 +10,13 @@
   "bin": {
     "fury": "dist/app.js"
   },
-  "keywords": [
-    "cli",
-    "git",
-    "Node",
-    "JavaScript",
-    "tool"
-  ],
-  "author": {
-    "name": "jujoycode",
-    "email": "jh.b.ryu@gmail.com"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jujoycode/fury.git"
   },
-  "license": "MIT",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.12.7",
     "esbuild": "^0.20.2",

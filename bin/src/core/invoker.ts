@@ -24,7 +24,7 @@ export default class Invoker {
         console.timeEnd('🔥')
       } catch (error: any) {
         this.Logger.error(`${error.message}`)
-        this.Logger.debug(`Rollback Process...`)
+        this.Logger.info(`Rollback Process...`)
         await command.undo()
       }
     })
