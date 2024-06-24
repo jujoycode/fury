@@ -1,5 +1,5 @@
 // util
-import { Logger, FileUtil, ProjectUtil } from '../utils'
+import { Logger, FileUtil, ProjectUtil, StringUtil } from '../utils'
 
 // constants
 import { folderStructure } from '../constants/folderStructure'
@@ -8,6 +8,7 @@ import { folderStructure } from '../constants/folderStructure'
 import jsPackage from '../templates/js.package.json'
 import tsPackage from '../templates/ts.package.json'
 import tsConfig from '../templates/tsconfig.json'
+import prettier from '../templates/prettier.json'
 
 // interface
 import { Factory } from '../interface/factory'
@@ -65,8 +66,16 @@ export class PlaneProjectFactory implements Factory {
         )
       })
 
-      // 4. Prettier / ESLint
-      // ------------------------
+      // 4. Prettier
+      await this.ProjectUtil.processRun('Create Formatter', async () => {
+        await FileUtil.createFile(
+          this.workDir,
+          '.prettierrc',
+          'yaml',
+          StringUtil.convertJsonToYaml(prettier)
+        )
+      })
+
     } catch (error: any) {
       this.logger.debug(error.message)
       throw new Error(error.message)

@@ -1,10 +1,10 @@
 {
   "name": "fury-tool",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Tool that helps developers in a variety of tasks",
   "main": "dist/app.js",
   "scripts": {
-    "build": "rm -rf dist && node ./scripts/build.mjs && tsc",
+    "build": "rm -rf dist && tsc && node ./scripts/build.mjs",
     "dev": "pnpm build && node ./dist/app.js"
   },
   "bin": {
