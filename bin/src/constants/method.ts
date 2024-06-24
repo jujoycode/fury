@@ -6,6 +6,15 @@ export const METHOD = {
     bun: ['install']
   },
 
+  FRAMEWORK: {
+    REACT: {
+      npm: ['init', 'react-app'],
+      yarn: ['create', 'react-app'],
+      pnpm: ['create', 'react-app'],
+      TEMPLATE: '--template',
+    }
+  },
+
   GIT: 'git',
   GIT_INIT: ['init'],
   GIT_ADD_REMOTE: ['remote', 'add', 'origin'],
@@ -17,5 +26,11 @@ export const METHOD = {
   GIT_RESET: ['reset'],
 
   REMOVE: 'rm',
-  REMOVE_ALL_OPTION: ['-rf']
+  REMOVE_ALL_OPTION: ['-rf'],
+
+  NODE_MODULES: 'node_modules',
+  LOCK: {
+    npm: 'package-lock.json',
+    pnpm: 'pnpm-lock.yaml'
+  }
 }

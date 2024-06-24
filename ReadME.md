@@ -11,11 +11,14 @@
 ## Installation
 
 ```bash
-# Locally in your project.
-npm install -D fury-tool
-
-# Or globally
+# npm
 npm install -g fury-tool
+
+# yarn
+yarn global add fury-tool
+
+# pnpm
+pnpm install -g fury-tool
 ```
 
 ## Usage
@@ -47,8 +50,11 @@ $ fury -V # or fury --version
 
 ## Version History
 
+- 1.2.0
+  - Use `git` with `gitmoji`
+  - `fury` can create `React` Project
 - 1.1.0
-  - Use `git` through `fury`
+  - Use `git` with `fury`
 - 1.0.0
   - `fury` can create Project with `node`
 

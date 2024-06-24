@@ -10,8 +10,8 @@ import { type CLI, Launcher } from '../core'
 import {
   PackageManager,
   ProjectInfo,
-  ProjectLanguage
-  // projectTemplate,
+  ProjectLanguage,
+  projectTemplate
 } from '../interface/program'
 
 export class CreateProjectCommand extends BaseCommand {
@@ -35,14 +35,14 @@ export class CreateProjectCommand extends BaseCommand {
       projectLanguage: await this.CLI.getSeletValue<ProjectLanguage>(CONFIG.PROJECT_LANG),
       packageManager: await this.CLI.getSeletValue<PackageManager>(CONFIG.PACKAGE_MANAGER),
       projectTemplate: 'default',
-      // frameworkUsage: await this.CLI.getConfirmValue(CONFIG.FRAMEWORK_USAGE),
+      frameworkUsage: await this.CLI.getConfirmValue(CONFIG.FRAMEWORK_USAGE),
       gitUsage: await this.CLI.getConfirmValue(CONFIG.GIT_USAGE)
     }
 
-    //TODO: 프레임워크 탬플릿 제작 시 사용
-    // if (projectInfo.frameworkUsage) {
-    //   projectInfo.projectTemplate = await this.CLI.getSeletValue<projectTemplate>(CONFIG.PROJECT_TEMPLATE);
-    // }
+    this.logger.empty()
+    if (projectInfo.frameworkUsage) {
+      projectInfo.projectTemplate = await this.CLI.getSeletValue<projectTemplate>(CONFIG.PROJECT_TEMPLATE);
+    }
 
     if (projectInfo.gitUsage) {
       projectInfo.gitRepoUrl = await this.CLI.getInputValue(CONFIG.GIT_REPOSITORY_URL)
