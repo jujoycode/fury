@@ -1,4 +1,4 @@
-<img width="90px" height="55px" align="right" alt="Fury Logo" src="./assets/fury_logo2.jpeg" title="fury" />
+<img width="90px" height="60px" align="right" alt="Fury Logo" src="./assets/fury_logo2.jpeg" title="fury" />
 
 # Fury
 
@@ -28,10 +28,10 @@ pnpm install -g fury-tool
 $ fury
 
 # When you want push all changes
-$ fury -pa
+$ fury -push
 
-# When you want update your 'node_modules' (wip)
-$ fury -up
+# When you want set latest your 'node_modules' (wip)
+$ fury -update
 
 # When you want to access help information
 $ fury -h # or fury --help
